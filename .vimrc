@@ -19,6 +19,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'davidhalter/jedi-vim'
+Bundle 'jimenezrick/vimerl'
 
 filetype plugin indent on
 let g:Powerline_symbols = 'unicode'
