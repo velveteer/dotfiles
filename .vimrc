@@ -1,6 +1,6 @@
 filetype off
 syntax on
-colorscheme molokai
+colo herald 
 set tabstop=4
 set expandtab
 set shiftwidth=4
@@ -9,6 +9,8 @@ set autoindent
 set backspace=indent,eol,start
 set encoding=utf-8
 set laststatus=2
+au FileType html setl sw=2 sts=2 et
+au BufRead,BufNewFile *.ex,*.exs setfiletype elixir
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -18,7 +20,6 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-powerline'
-Bundle 'davidhalter/jedi-vim'
 Bundle 'jimenezrick/vimerl'
 Bundle 'elixir-lang/vim-elixir'
 
