@@ -11,10 +11,13 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Ignore filetypes
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.beam
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = "\\"
+let g:mapleader = "\\"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -23,6 +26,8 @@ nmap <leader>w :w!<cr>
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
+" NERDTree
+map <silent> <C-x> :NERDTreeFocus<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -202,9 +207,6 @@ set laststatus=2
 " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set noshowmode
 
-" Format the status line
-" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -360,3 +362,4 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'scrooloose/syntastic'
 Bundle 'nvie/vim-flake8'
 Bundle 'jimenezrick/vimerl'
+Bundle 'scrooloose/nerdtree'
