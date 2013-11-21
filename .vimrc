@@ -31,6 +31,8 @@ map <silent> <C-x> :NERDTreeFocus<cr>
 
 au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
 au FileType elixir setl sw=2 sts=2 et iskeyword+=!,?
+autocmd BufNewFile,BufRead *.moon set filetype=moon
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
