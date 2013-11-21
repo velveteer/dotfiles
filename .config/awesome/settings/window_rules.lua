@@ -23,8 +23,8 @@ awful.rules.rules = {
                 rule = { instance = "plugin-container"},
                 properties = { floating = true } },
         {
-                rule = { instance = "plugin-container" },
-                properties = { floating = true }
+                rule = { instance = "terminator" },
+                properties = { tag = tags[1][1] },
         },
         {
                 rule = { class = "gimp" },

@@ -21,7 +21,8 @@ local myro  = require("myrc.run_once")  -- run app as long it's not running alre
 --local myerr = require("myrc.error")     -- error reporting
 
 -- VARIABLES
-terminal = "urxvtc -e zsh"
+-- terminal = "urxvtc -e zsh"
+terminal = "terminator --geometry=900x600"
 editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
 configpath="/home/"..os.getenv("USER").."/.config/awesome/"

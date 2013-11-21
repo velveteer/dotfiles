@@ -27,6 +27,11 @@ alias ll='ls -l --color=auto'
 alias -s odt=libreoffice
 alias vpn='sudo openconnect -b -u josh5700 https://vpn1.dfw1.rackspace.com --script /etc/vpnc/vpnc-script'
 alias shutdown='sudo systemctl poweroff'
+alias lsproxy='netstat -plnt | grep 8080'
+alias killproxy='pgrep -f "ssh -D 8080" | xargs kill -9'
+alias mkproxy='/usr/bin/ssh -D 8080 -f -C -q -N josh5700@cbast1.iad.corp.rackspace.com'
+alias resetproxy='killproxy; mkproxy'
+
 
 function apep { autopep8 "$1" -r -v -i -p 2000; }
 
