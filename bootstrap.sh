@@ -22,4 +22,5 @@ git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$H
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleInstall +qall
 
-#ln -s $dir/powerline-shell/powerline-shell.py ~/powerline-shell.py
+# install Powerline for zsh
+ln -s $dir/powerline-shell/powerline-shell.py ~/powerline-shell.py
