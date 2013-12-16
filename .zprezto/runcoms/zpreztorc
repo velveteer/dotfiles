@@ -10,7 +10,7 @@
 #
 
 # Set case-sensitivity for completion, history lookup, etc.
-zstyle ':prezto:*:*' case-sensitive 'no'
+# zstyle ':prezto:*:*' case-sensitive 'yes'
 
 # Color output (auto set to 'no' on dumb terminals).
 zstyle ':prezto:*:*' color 'yes'
@@ -26,17 +26,15 @@ zstyle ':prezto:*:*' color 'yes'
 zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
+  'editor' \
   'history' \
   'directory' \
   'spectrum' \
   'utility' \
   'completion' \
+  'prompt' \
   'git' \
-  'pacman' \
-  'tmux' \
-  'syntax-highlighting' \
-#  'prompt'
-#  'editor' \
+  'pacman' 
 
 #
 # Editor
@@ -89,7 +87,7 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-# zstyle ':prezto:module:prompt' theme 'sorin'
+zstyle ':prezto:module:prompt' theme 'clint'
 
 #
 # Screen

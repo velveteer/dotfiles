@@ -11,41 +11,4 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-bindkey -e
-
-export TERM="xterm-256color"
-export WORKON_HOME=~/Envs
-export EDITOR=vim
-export XDG_CONFIG_HOME=~/.config
-export PATH="$PATH:/usr/local/bin:/home/josh/elixir/bin:/usr/local/openresty/luajit/bin"
-export LANG="en_US.UTF-8"
-
-
-alias ll='ls -l --color=auto'
-alias -s odt=libreoffice
-alias vpn='sudo openconnect -b -u josh5700 https://vpn1.dfw1.rackspace.com --script /etc/vpnc/vpnc-script'
-alias shutdown='sudo systemctl poweroff'
-alias lsproxy='netstat -plnt | grep 8080'
-alias killproxy='pgrep -f "ssh -D 8080" | xargs kill -9'
-alias mkproxy='/usr/bin/ssh -D 8080 -f -C -q -N josh5700@cbast1.iad.corp.rackspace.com'
-alias resetproxy='killproxy; mkproxy'
-
-
-function apep { autopep8 "$1" -r -v -i -p 2000; }
-
-#Powerline shell
-function powerline_precmd() {
-  export PS1="$(~/powerline-shell.py $? --shell zsh)"
-}
-
-function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-if [ "$s" = "powerline_precmd" ]; then
-return
-fi
-done
-precmd_functions+=(powerline_precmd)
-}
-
-install_powerline_precmd
 

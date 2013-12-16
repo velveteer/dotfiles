@@ -1,0 +1,12 @@
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.gitconfig
+.histfile
+.local/
+.ssh/
+.vim/
+.viminfo
+.zcompdump
+.zhistory
