@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 dir=~/dotfiles 
-files=(config fonts vimrc zprezto tmux.conf Xresources)
+files=(config fonts vimrc zprezto tmux.conf Xresources zshrc zprofile zpreztorc)
 
 # change to the dotfiles directory
 echo "Changing to the $dir directory"
@@ -16,10 +16,7 @@ for file in $files; do
 done
 
 # install prezto
-setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-done
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
 # install vundle and bundles
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
