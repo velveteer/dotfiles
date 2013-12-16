@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 dir=~/dotfiles 
-files=(config fonts vimrc zprezto tmux.conf Xresources zshrc zprofile zpreztorc)
+files=(config fonts vimrc tmux.conf Xresources zshrc zprofile zpreztorc)
 
 # change to the dotfiles directory
 echo "Changing to the $dir directory"
