@@ -1,14 +1,7 @@
 #!/usr/bin/zsh
-############################
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
-############################
 
-########## Variables
-
-dir=~/dotfiles                    # dotfiles directory
-files=(config fonts vimrc zprezto tmux.conf)    # list of files/folders to symlink in homedir
-
-##########
+dir=~/dotfiles 
+files=(config fonts vimrc zprezto tmux.conf)
 
 # change to the dotfiles directory
 echo "Changing to the $dir directory"
@@ -22,11 +15,13 @@ for file in $files; do
     echo "...done"
 done
 
+# install prezto
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 done
 
+# install vundle and bundles
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleInstall +qall
 
