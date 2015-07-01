@@ -35,9 +35,6 @@ bindsym $mod+Tab exec "rofi -show window"
 # take screenshot
 bindsym $mod+s exec "teiler --area"
 
-# screen lock
-bindsym Control+$mod+l exec slimlock
-
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
@@ -157,6 +154,25 @@ bar {
         }
 }
 
+# Power management
+set $Locker ~/.i3/locker.sh
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+o mode "$mode_system"
+
 # Start background processes.
 exec --no-startup-id udiskie
 exec --no-startup-id nm-applet
@@ -166,6 +182,7 @@ exec --no-startup-id compton --config ~/.i3/compton.conf -b
 exec --no-startup-id unclutter -root -visible
 exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id dunst -config ~/.i3/dunstrc
+exec --no-startup-id xautolock -time 10 -locker "~/.i3/locker.sh"
 
 # Background image
 exec --no-startup-id ~/.i3/wallpaper.sh

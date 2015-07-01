@@ -11,7 +11,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/opt/openresty/nginx/sbin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin"
 export BROWSER="chromium"
 export TERM="xterm-256color"
 
