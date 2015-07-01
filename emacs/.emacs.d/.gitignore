@@ -1,0 +1,16 @@
+*.elc
+*.eld
+el-get/*
+elpa/*
+ac-comphist.dat
+auto-save-list
+bookmarks
+eshell/*
+history
+places
+recentf
+undohist
+.emacs.desktop
+.emacs.desktop.lock
+last-wconf
+url

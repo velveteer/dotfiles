@@ -1,0 +1,83 @@
+!! vi:syntax=xdefaults
+
+!! Font Settings
+Xft*autohint: 0
+Xft*lcdfilter: lcddefault
+Xft*hintstyle: hintfull
+Xft*hinting: 1
+Xft*antialias: 1
+Xft*rgba: rgb
+
+URxvt*font: xft:M+ 2m:size=14
+URxvt*boldFont: xft:M+ 2m:bold:size=14
+URxvt*letterSpace: 1
+
+!! Terminal Behavior
+URxvt*scrollBar: false
+URxvt*urgentOnBell: true
+URxvt*matcher.button: 1
+URxvt*url-launcher: /usr/bin/chromium
+URxvt*url-launcher.underline: true
+URxvt*iso14755: false
+URxvt*iso14755_52: false
+URxvt*termName: xterm-256color
+URxvt*loginShell: true
+URxvt*perl-lib: /usr/lib/urxvt/perl/
+URxvt*perl-ext-common: default,matcher,clipboard,vtwheel
+
+URxvt*keysym.Control-Shift-C: perl:clipboard:copy
+URxvt*keysym.Control-Shift-V: perl:clipboard:paste
+
+!! Display
+URxvt*depth: 32
+URxvt*fading: 30
+URxvt*internalBorder: 2
+URxvt*cursorBlink: 1
+URxvt*geometry: 150x50
+URxvt*cursorColor: #657b83
+URxvt*cursorUnderline: false
+URxvt*pointerBlank: true
+URxvt*searchable-scrollback: CM-s
+URxvt*intensityStyles: false
+
+! Base16 Default
+! Scheme: Chris Kempson (http://chriskempson.com)
+
+#define base00 #181818
+#define base01 #282828
+#define base02 #383838
+#define base03 #585858
+#define base04 #b8b8b8
+#define base05 #d8d8d8
+#define base06 #e8e8e8
+#define base07 #f8f8f8
+#define base08 #ab4642
+#define base09 #dc9656
+#define base0A #f7ca88
+#define base0B #a1b56c
+#define base0C #86c1b9
+#define base0D #7cafc2
+#define base0E #ba8baf
+#define base0F #a16946
+
+*.foreground:   base05
+*.background:   base00
+*.cursorColor:  base05
+
+*.color0:       base00
+*.color1:       base08
+*.color2:       base0B
+*.color3:       base0A
+*.color4:       base0D
+*.color5:       base0E
+*.color6:       base0C
+*.color7:       base05
+
+*.color8:       base03
+*.color9:       base09
+*.color10:      base01
+*.color11:      base02
+*.color12:      base04
+*.color13:      base06
+*.color14:      base0F
+*.color15:      base07

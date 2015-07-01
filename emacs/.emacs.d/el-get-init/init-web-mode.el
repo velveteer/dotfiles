@@ -1,0 +1,7 @@
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.less?\\'" . less-css-mode))
+(setq web-mode-enable-current-element-highlight t)
+(setq web-mode-enable-css-colorization t)
+(setq web-mode-markup-indent-offset 4)
