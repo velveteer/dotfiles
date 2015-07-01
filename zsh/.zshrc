@@ -1,5 +1,10 @@
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=/usr/share/oh-my-zsh
 export DISABLE_AUTO_TITLE="true"
+export PATH="$HOME/bin:$PATH"
+export BROWSER="chromium"
+export TERM="xterm-256color"
+
+
 ZSH_THEME="kolo"
 DISABLE_AUTO_UPDATE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -9,11 +14,6 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 source $ZSH/oh-my-zsh.sh
-
-# User configuration
-export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin"
-export BROWSER="chromium"
-export TERM="xterm-256color"
 
 #------------------------------
 # Alias stuff
