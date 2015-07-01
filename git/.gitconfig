@@ -19,3 +19,5 @@
     path = ~/.gitconfig_local
 [rerere]
     enabled = true
+[url "https://"]
+    insteadOf = git://
