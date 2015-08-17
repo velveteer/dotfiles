@@ -7,9 +7,10 @@ Xft*hintstyle: hintfull
 Xft*hinting: 1
 Xft*antialias: 1
 Xft*rgba: rgb
+Xft*dpi: 96
 
-URxvt*font: xft:M+ 2m:size=14
-URxvt*boldFont: xft:M+ 2m:bold:size=14
+URxvt*font: xft:M+ 2m:size=11
+URxvt*boldFont: xft:M+ 2m:bold:size=11
 URxvt*letterSpace: 1
 
 !! Terminal Behavior
