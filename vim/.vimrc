@@ -18,6 +18,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 
+" Heuristically set buffer options
+Plug 'tpope/vim-sleuth'
+
 " Tabularize
 Plug 'godlygeek/tabular'
 
@@ -89,8 +92,6 @@ set hidden
 set ignorecase smartcase
 set wildmenu
 set wildmode=full
-set tabstop=2
-set shiftwidth=2
 set expandtab smarttab
 set scrolloff=5
 set encoding=utf-8
