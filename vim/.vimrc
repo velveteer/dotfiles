@@ -107,6 +107,10 @@ set grepformat=%f:%l:%c:%m,%f:%l:%m
 set completeopt=menuone,preview,longest
 set nocursorline
 
+" Annoying temporary files
+set backupdir=/tmp//,.
+set directory=/tmp//,
+
 " Stores undo state even when files are closed (in undodir)
 set undodir=$HOME/.vim/undo
 set undofile
