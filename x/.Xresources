@@ -9,9 +9,9 @@ Xft*antialias: 1
 Xft*rgba: rgb
 Xft*dpi: 96
 
-URxvt*font: xft:M+ 2m:size=11
-URxvt*boldFont: xft:M+ 2m:bold:size=11
-URxvt*letterSpace: 1
+URxvt*font: xft:ttyp0:size=10
+URxvt*boldFont: xft:ttyp0:bold:size=10
+URxvt*letterSpace: 0
 
 !! Terminal Behavior
 URxvt*scrollBar: false

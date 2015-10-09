@@ -220,7 +220,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 " CtrlP options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|compiled)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|compiled|coverage)|(\.(swp|ico|git|svn))$'
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
