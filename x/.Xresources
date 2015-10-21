@@ -9,8 +9,8 @@ Xft*antialias: 1
 Xft*rgba: rgb
 Xft*dpi: 96
 
-URxvt*font: xft:ttyp0:size=10
-URxvt*boldFont: xft:ttyp0:bold:size=10
+URxvt*font: xft:hack:size=8
+URxvt*boldFont: xft:hack:bold:size=8
 URxvt*letterSpace: 0
 
 !! Terminal Behavior
