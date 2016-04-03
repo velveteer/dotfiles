@@ -39,7 +39,7 @@ foreground = #cccccc
 foreground_bold = #ffffff
 #foreground_dim = #888888
 #background = #ededed
-background = #2d2d2d
+background = rgba(31 ,31, 31, 0.85)
 #cursor = #aeafad
 
 # if unset, will reverse foreground and background

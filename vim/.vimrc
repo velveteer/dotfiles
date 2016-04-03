@@ -15,7 +15,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " Surround
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 
 " Heuristically set buffer options
@@ -40,12 +39,10 @@ Plug 'edsono/vim-matchit'
 Plug 'scrooloose/syntastic'
 
 " Langauge-related plugins
-Plug 'heavenshell/vim-jsdoc'
 Plug 'pangloss/vim-javascript'
-Plug 'othree/yajs.vim'
 Plug 'mxw/vim-jsx'
+Plug 'heavenshell/vim-jsdoc'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'gkz/vim-ls'
 Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
 
@@ -56,9 +53,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-tbone'
 
 " Themes
-Plug 'sickill/vim-monokai'
-Plug 'tomasr/molokai'
-Plug 'jnurmine/Zenburn'
+Plug 'AlessandroYorba/Sierra'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -68,7 +63,8 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-colorscheme monokai
+let g:sierra_Twilight = 1
+colorscheme sierra
 set t_ut=
 
 syntax enable
@@ -78,38 +74,21 @@ filetype indent on
 set nu
 set autoindent
 set smartindent
-set lazyredraw
 set laststatus=2
-set showcmd
-set visualbell
 set backspace=indent,eol,start
-set timeoutlen=500
-set whichwrap=b,s
 set shortmess=aIT
-set hlsearch " CTRL-L / CTRL-R W
+set hlsearch
 set incsearch
 set hidden
 set ignorecase smartcase
-set wildmenu
-set wildmode=full
 set expandtab smarttab
-set scrolloff=5
 set encoding=utf-8
-set list
-set listchars=tab:\|\ ,
-set virtualedit=block
-set nojoinspaces
-set diffopt=filler,vertical
-set autoread
-set clipboard=unnamed
-set foldlevelstart=99
-set grepformat=%f:%l:%c:%m,%f:%l:%m
-set completeopt=menuone,preview,longest
 set nocursorline
 
 " Annoying temporary files
 set backupdir=/tmp//,.
 set directory=/tmp//,
+set noswapfile
 
 " Stores undo state even when files are closed (in undodir)
 set undodir=$HOME/.vim/undo
@@ -117,6 +96,9 @@ set undofile
 
 " GitGutter tmp fix
 set shell=/bin/bash
+
+" Remove auto-comments
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " }}}
 " ============================================================================
@@ -168,17 +150,6 @@ map <leader>bd :Bclose<cr>
 
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
-map <leader>t<leader> :tabnext<cr>
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
