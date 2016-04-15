@@ -40,9 +40,10 @@ Plug 'scrooloose/syntastic'
 
 " Langauge-related plugins
 Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs'
 Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'hail2u/vim-css3-syntax'
+Plug 'JulesWang/css.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
 
@@ -53,7 +54,7 @@ Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-tbone'
 
 " Themes
-Plug 'AlessandroYorba/Sierra'
+Plug 'flazz/vim-colorschemes'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -63,27 +64,46 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-let g:sierra_Twilight = 1
-colorscheme sierra
+colorscheme Tomorrow-Night-Eighties
 set t_ut=
 
-syntax enable
-filetype plugin on
-filetype indent on
+filetype plugin indent on          " Load plugins according to detected filetype.
+syntax on                          " Enable syntax highlighting.
 
-set nu
-set autoindent
-set smartindent
-set laststatus=2
-set backspace=indent,eol,start
-set shortmess=aIT
-set hlsearch
-set incsearch
-set hidden
-set ignorecase smartcase
-set expandtab smarttab
-set encoding=utf-8
-set nocursorline
+set autoindent                     " Indent according to previous line.
+set expandtab                      " Use spaces instead of tabs.
+set softtabstop =4                 " Tab key indents by 4 spaces.
+set shiftwidth  =4                 " >> indents by 4 spaces.
+set shiftround                     " >> indents to next multiple of 'shiftwidth'.
+
+set backspace   =indent,eol,start  " Make backspace work as you would expect.
+set hidden                         " Switch between buffers without having to save first.
+set laststatus  =2                 " Always show statusline.
+set display     =lastline          " Show as much as possible of the last line.
+
+set showmode                       " Show current mode in command-line.
+set showcmd                        " Show already typed keys when more are expected.
+
+set incsearch                      " Highlight while searching with / or ?.
+set hlsearch                       " Keep matches highlighted.
+
+set ttyfast                        " Faster redrawing.
+set lazyredraw                     " Only redraw when necessary.
+
+set splitbelow                     " Open new windows below the current window.
+set splitright                     " Open new windows right of the current window.
+
+set cursorline                     " Find the current line quickly.
+set wrapscan                       " Searches wrap around end-of-file.
+set report      =0                 " Always report changed lines.
+set synmaxcol   =200               " Only highlight the first 200 columns.
+
+set list                           " Show non-printable characters.
+if has('multi_byte') && &encoding ==# 'utf-8'
+  let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
+else
+  let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
+endif
 
 " Annoying temporary files
 set backupdir=/tmp//,.

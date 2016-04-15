@@ -20,9 +20,23 @@
 
 (setq my-packages
       (append
-       '(el-get rainbow-delimiters undo-tree diminish web-mode lua-mode nginx-mode tomorrow-theme
-                less-css-mode js2-mode flycheck flycheck-pos-tip js-comint auto-complete nyan-mode
-                tern anzu volatile-highlights git-gutter ace-jump-mode helm projectile)
+       '(el-get rainbow-delimiters
+                undo-tree diminish
+                web-mode
+                lua-mode
+                nginx-mode
+                tomorrow-theme
+                less-css-mode
+                js2-mode
+                flycheck
+                flycheck-pos-tip
+                nyan-mode
+                anzu
+                volatile-highlights
+                git-gutter
+                ace-jump-mode
+                helm
+                projectile)
        (mapcar 'el-get-source-name el-get-sources)))
 
 (el-get 'sync my-packages)

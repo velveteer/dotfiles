@@ -1,8 +1,9 @@
 export ZSH=/usr/share/oh-my-zsh
 export DISABLE_AUTO_TITLE="true"
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin:$HOME/.go/bin:$PATH"
 export BROWSER="chromium"
 export TERM="xterm-256color"
+export GOPATH="$HOME/.go"
 
 
 ZSH_THEME="kolo"
@@ -38,6 +39,7 @@ alias resty='sudo docker run -t -i -p 8080:8080 -v=`pwd`:/resty -w=/resty openre
 alias clean_docker='sudo docker stop $(sudo docker ps -a -q) && sudo docker rm $(sudo docker ps -a -q)'
 alias clean_images='sudo docker rmi $(sudo docker images -q)'
 alias npmx='PATH=$(npm bin):$PATH'
+alias bower='noglob bower'
 #------------------------------
 
 alias grep="/usr/bin/grep $GREP_OPTIONS"
