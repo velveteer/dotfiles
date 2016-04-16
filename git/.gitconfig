@@ -5,7 +5,7 @@
     editor = vim
     excludesfile = ~/.gitexcludes
 [color]
-    ui = true
+    ui = false
 [push]
     default = simple
 [diff]
@@ -22,4 +22,4 @@
 [url "https://"]
     insteadOf = git://
 [credential]
-	helper = cache --timeout 3600
+    helper = cache --timeout 3600
