@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Use the gummiboot efi boot loader.
@@ -48,7 +48,6 @@
     i3status
     parcellite
     pavucontrol
-    redshift
     rofi
     stow
     termite
@@ -81,6 +80,7 @@
 
     vim = {
       lua = true;
+      python = true;
     };
 
     programs = {
@@ -109,7 +109,10 @@
   services.xserver.enable = true;
   services.xserver.layout = "us";
 
-  services.xserver.desktopManager.default = "none";
+  services.xserver.desktopManager = {
+    default = "xfce";
+    xfce.enable = true;
+  };
 
   services.xserver.windowManager = {
     default = "i3";
