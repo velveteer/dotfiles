@@ -5,6 +5,11 @@ export GOPATH="$HOME/.go"
 
 export PATH="$HOME/bin:$HOME/.go/bin:$PATH"
 
+ZSH_THEME="kolo"
+DISABLE_AUTO_UPDATE="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+plugins=(git docker)
+
 # Play safe!
 alias rm='rm -i'
 alias mv='mv -i'

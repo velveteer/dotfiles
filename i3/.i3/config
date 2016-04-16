@@ -126,10 +126,6 @@ bindsym XF86AudioLowerVolume exec "amixer -D pulse set Master '10%-'"
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 bindsym XF86AudioMicMute exec "amixer -D pulse sset Capture toggle"
 
-#docking
-bindsym Control+$mod+u exec "bash ~/.i3/bin/undocked.sh"
-bindsym Control+$mod+d exec "bash ~/.i3/bin/docked.sh"
-
 bindsym XF86KbdBrightnessDown exec "xbacklight -dec 30"
 bindsym XF86KbdBrightnessUp exec "xbacklight -inc 30"
 
@@ -144,7 +140,7 @@ for_window [class="VidyoDesktop"] floating enable
 
 bar {
         position top
-        #status_command ~/.i3/bin/conky-wrapper
+        status_command ~/.i3/bin/conky-wrapper
         tray_output primary
         colors {
                 statusline #AAAAAA
@@ -176,13 +172,10 @@ bindsym $mod+o mode "$mode_system"
 # Start background processes.
 exec --no-startup-id udiskie
 exec --no-startup-id nm-applet
-exec --no-startup-id redshift
 exec --no-startup-id parcellite -n
 exec --no-startup-id compton --config ~/.i3/compton.conf -b
 exec --no-startup-id unclutter -root -visible
-exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id dunst -config ~/.i3/dunstrc
-exec --no-startup-id xautolock -time 10 -locker "~/.i3/locker.sh"
 
 # Background image
 exec --no-startup-id ~/.i3/wallpaper.sh

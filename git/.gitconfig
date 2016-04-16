@@ -5,7 +5,7 @@
     editor = vim
     excludesfile = ~/.gitexcludes
 [color]
-    ui = false
+    ui = true
 [push]
     default = simple
 [diff]

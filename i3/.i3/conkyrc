@@ -47,16 +47,6 @@ TEXT
 { "full_text" : "${fs_free /}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
 { "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
 
-#FS: Home
-{ "full_text" : "${eval Home:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
-{ "full_text" : "${fs_free /home}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
-{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
-
-#FS: Docker
-{ "full_text" : "${eval Docker:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
-{ "full_text" : "${fs_free /var/lib/docker}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
-{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
-
 #VOLUME
 { "full_text" : "${eval Vol:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
 { "full_text" : "${exec amixer -M get Master | egrep -o "[0-9]+%" | sed -n '2 p'}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
