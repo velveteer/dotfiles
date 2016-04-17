@@ -53,7 +53,7 @@ plugins=(git docker)
 
 # User configuration
 
-export PATH="/home/josh/bin:/home/josh/.go/bin:/home/josh/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec"
+export PATH="/home/josh/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -98,6 +98,3 @@ alias clean_images='sudo docker rmi $(sudo docker images -q)'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export NVM_DIR="/home/josh/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -46,8 +46,10 @@
     git
     i3lock
     i3status
+    nodejs-5_x
     parcellite
     pavucontrol
+    python
     rofi
     stow
     termite
@@ -90,6 +92,7 @@
   };
 
   fonts = {
+    enableCoreFonts = true;
     enableFontDir = true;
     fonts = with pkgs; [
       hack-font
@@ -98,6 +101,7 @@
   };
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -110,8 +114,7 @@
   services.xserver.layout = "us";
 
   services.xserver.desktopManager = {
-    default = "xfce";
-    xfce.enable = true;
+    default = "none";
   };
 
   services.xserver.windowManager = {
@@ -119,12 +122,14 @@
     i3.enable = true;
   };
 
-  services.xserver.synaptics.enable = true;
+  # services.xserver.synaptics.enable = true;
+
+  services.upower.enable = true;
 
   # Define a user account. Don't forget to set a password with `passwd`.
   users.extraUsers.josh = {
     name = "josh";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker"];
     uid = 1000;
     createHome = true;
     home = "/home/josh";
