@@ -58,6 +58,8 @@ export PATH="/home/josh/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/ho
 
 source $ZSH/oh-my-zsh.sh
 
+export SSH_ASKPASS=""
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
