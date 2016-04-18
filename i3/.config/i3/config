@@ -124,9 +124,7 @@ bindsym $mod+r mode "resize"
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 1 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 1 -5% #decrease sound volume
-
-bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
-bindsym XF86AudioMicMute exec "amixer -D pulse sset Capture toggle"
+bindsym XF86AudioMute exec pactl -- set-sink-mute 1 toggle
 
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 30"
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 30"

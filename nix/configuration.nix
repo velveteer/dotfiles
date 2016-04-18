@@ -101,7 +101,6 @@
   services.xserver = {
     enable = true;
     layout = "us";
-    xrandrHeads = [ "DP1-1" "DP1-2" ];
 
     displayManager = {
       slim = {
@@ -153,11 +152,12 @@
   fonts = {
     enableCoreFonts = true;
     enableFontDir = true;
+
     fonts = with pkgs; [
       hack-font
       terminus_font
-      #cantarell_fonts
-      #dejavu_fonts
+      cantarell_fonts
+      dejavu_fonts
       #dosemu_fonts
       freefont_ttf
       liberation_ttf
@@ -166,11 +166,11 @@
       #ucsFonts
       #unifont
       #vistafonts
-      #xlibs.fontadobe100dpi
-      #xlibs.fontadobe75dpi
-      #xlibs.fontadobeutopia100dpi
-      #xlibs.fontadobeutopia75dpi
-      #xlibs.fontadobeutopiatype1
+      xlibs.fontadobe100dpi
+      xlibs.fontadobe75dpi
+      xlibs.fontadobeutopia100dpi
+      xlibs.fontadobeutopia75dpi
+      xlibs.fontadobeutopiatype1
       #xlibs.fontarabicmisc
       xlibs.fontbh100dpi
       xlibs.fontbh75dpi
