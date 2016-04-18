@@ -33,10 +33,35 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  # NOTE: changes to this take effect on login.
+  environment.sessionVariables = {
+    EDITOR = "vim";
+    NIXPKGS_ALLOW_UNFREE = "1";
+  };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+
+    chromium = {
+      enablePepperFlash = true;
+      enablePepperPDF = true;
+    };
+
+    vim = {
+      lua = true;
+      python = true;
+    };
+
+    programs = {
+      bash.enableCompletion = true;
+      zsh.enable = true;
+    };
+  };
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    chromium flashplayer
+    chromium
     compton
     curl
     docker
@@ -54,7 +79,7 @@
     termite
     tmux
     unclutter
-    vim
+    vim_configurable
     wget
     xorg.xbacklight
     xclip
@@ -63,32 +88,6 @@
     docker_compose
     udiskie
   ]);
-
-  # NOTE: changes to this take effect on login.
-  environment.sessionVariables = {
-    EDITOR = "vim";
-    NIXPKGS_ALLOW_UNFREE = "1";
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-
-    chromium = {
-      enableGoogleTalkPlugin = true;
-      enablePepperFlash = true;
-      enablePepperPDF = true;
-    };
-
-    vim = {
-      lua = true;
-      python = true;
-    };
-
-    programs = {
-      bash.enableCompletion = true;
-      zsh.enable = true;
-    };
-  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -101,6 +100,7 @@
   services.xserver = {
     enable = true;
     layout = "us";
+    vaapiDrivers = [ pkgs.vaapiIntel ];
 
     displayManager = {
       slim = {
@@ -133,6 +133,8 @@
       i3.enable = true;
     };
   };
+
+  services.upower.enable = true;
 
   # Define a user account. Don't forget to set a password with `passwd`.
   users.extraUsers.josh = {
