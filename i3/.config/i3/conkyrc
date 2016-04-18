@@ -1,0 +1,68 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+update_interval 2.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+short_units yes
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+# use_spacer should have an argument of left, right, or none
+use_spacer left
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+
+# Stuff after 'TEXT' will be formatted on screen
+TEXT
+
+[\
+#CPU
+{ "full_text" : "${eval CPU:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "${cpu}%", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#RAM
+{ "full_text" : "${eval RAM:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "${memperc}%", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#Load
+{ "full_text" : "${eval Load:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "${loadavg 5}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#FS: Root
+{ "full_text" : "${eval Root:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "${fs_free /}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#FS: Docker
+{ "full_text" : "${eval Docker:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "${fs_free /var/lib/docker}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#VOLUME
+{ "full_text" : "${eval Vol:}", "color" : "\#586E75", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "${exec amixer -M get Master | egrep -o "[0-9]+%" | sed -n '2 p'}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#BATT
+{ "full_text": "${eval Bat:}", "color": "\#586E75", "separator": false, "separator_block_width": 3 }, \
+{ "full_text": "${battery_short BAT0}", "color": "\#839496", "separator": false, "separator_block_width": 3 }, \
+{ "full_text" : "|", "color" : "\#073642", "separator" : false, "separator_block_width" : 3 }, \
+
+#CLOCK
+{ "full_text" : "${time %a %d %b, %H:%M}", "color" : "\#839496", "separator" : false, "separator_block_width" : 3 }, \
+{ "full_text" : "", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 } \
+],
