@@ -114,9 +114,6 @@ set noswapfile
 set undodir=$HOME/.vim/undo
 set undofile
 
-" GitGutter tmp fix
-set shell=/bin/bash
-
 " Remove auto-comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 

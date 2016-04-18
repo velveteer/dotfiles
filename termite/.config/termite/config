@@ -78,13 +78,4 @@ color14 = #8abeb7
 color7 = #929593
 color15 = #ecebec
 
-[hints]
-#font = Monospace 12
-#foreground = #dcdccc
-#background = #3f3f3f
-#padding = 2
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
-
 # vim: ft=dosini cms=#%s

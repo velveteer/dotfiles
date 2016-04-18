@@ -121,17 +121,15 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # multimedia keys
-bindsym XF86AudioRaiseVolume exec "amixer -D pulse set Master '10%+'"
-bindsym XF86AudioLowerVolume exec "amixer -D pulse set Master '10%-'"
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec pactl -- set-sink-volume 1 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl -- set-sink-volume 1 -5% #decrease sound volume
+
 bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
 bindsym XF86AudioMicMute exec "amixer -D pulse sset Capture toggle"
 
-#docking
-bindsym Control+$mod+u exec "bash ~/.i3/bin/undocked.sh"
-bindsym Control+$mod+d exec "bash ~/.i3/bin/docked.sh"
-
-bindsym XF86KbdBrightnessDown exec "xbacklight -dec 30"
-bindsym XF86KbdBrightnessUp exec "xbacklight -inc 30"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 30"
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 30"
 
 bindsym XF86Display exec "arandr"
 bindsym $mod+Shift+a exec "pavucontrol"
@@ -144,7 +142,7 @@ for_window [class="VidyoDesktop"] floating enable
 
 bar {
         position top
-        status_command ~/.i3/bin/conky-wrapper
+        status_command ~/.config/i3/bin/conky-wrapper
         tray_output primary
         colors {
                 statusline #AAAAAA
@@ -155,8 +153,7 @@ bar {
 }
 
 # Power management
-set $Locker ~/.i3/locker.sh
-
+set $Locker i3lock -i ~/dotfiles/backgrounds/congruent_outline.png --tiling && sleep 1
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
@@ -172,17 +169,3 @@ mode "$mode_system" {
 }
 
 bindsym $mod+o mode "$mode_system"
-
-# Start background processes.
-exec --no-startup-id udiskie
-exec --no-startup-id nm-applet
-exec --no-startup-id redshift
-exec --no-startup-id parcellite -n
-exec --no-startup-id compton --config ~/.i3/compton.conf -b
-exec --no-startup-id unclutter -root -visible
-exec --no-startup-id start-pulseaudio-x11
-exec --no-startup-id dunst -config ~/.i3/dunstrc
-exec --no-startup-id xautolock -time 10 -locker "~/.i3/locker.sh"
-
-# Background image
-exec --no-startup-id ~/.i3/wallpaper.sh
