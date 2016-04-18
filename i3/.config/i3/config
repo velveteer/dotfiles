@@ -142,7 +142,7 @@ for_window [class="VidyoDesktop"] floating enable
 
 bar {
         position top
-        status_command ~/.config/i3/bin/conky-wrapper
+        status_command i3status
         tray_output primary
         colors {
                 statusline #AAAAAA

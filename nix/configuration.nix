@@ -27,9 +27,9 @@
 
   time.timeZone = "US/Central";
 
-  services.ntp = {
-    enable = true;
-  };
+  services.ntp.enable = true;
+
+  services.acpid.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -38,7 +38,6 @@
   environment.systemPackages = with pkgs; [
     chromium flashplayer
     compton
-    conky
     curl
     docker
     dunst
@@ -102,6 +101,7 @@
   services.xserver = {
     enable = true;
     layout = "us";
+    xrandrHeads = [ "DP1-1" "DP1-2" ];
 
     displayManager = {
       slim = {
