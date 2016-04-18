@@ -110,16 +110,29 @@
   # services.printing.enable = true;
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
 
-  services.xserver.desktopManager = {
-    default = "none";
-  };
+  services.xserver = {
+    enable = true;
+    layout = "us";
 
-  services.xserver.windowManager = {
-    default = "i3";
-    i3.enable = true;
+    displayManager.slim = {
+      enable = true;
+      autoLogin = false;
+      defaultUser = "josh";
+      theme = pkgs.fetchurl {
+        url = "mirror://sourceforge/slim.berlios/slim-rear-window.tar.gz";
+        sha256 = "0b123706ccb67e94f626c183530ec5732b209bab155bc661d6a3f5cd5ee39511";
+      };
+    };
+
+    desktopManager = {
+      default = "none";
+    };
+
+    windowManager = {
+      default = "i3";
+      i3.enable = true;
+    };
   };
 
   # services.xserver.synaptics.enable = true;
