@@ -45,6 +45,7 @@
     git
     i3lock
     i3status
+    lua5
     nodejs-5_x
     parcellite
     pavucontrol
@@ -134,9 +135,6 @@
     };
   };
 
-  services.dbus.enable = true;
-  services.upower.enable = true;
-
   # Define a user account. Don't forget to set a password with `passwd`.
   users.extraUsers.josh = {
     name = "josh";
@@ -158,6 +156,50 @@
     fonts = with pkgs; [
       hack-font
       terminus_font
+      #cantarell_fonts
+      #dejavu_fonts
+      #dosemu_fonts
+      freefont_ttf
+      liberation_ttf
+      terminus_font
+      #ubuntu_font_family
+      #ucsFonts
+      #unifont
+      #vistafonts
+      #xlibs.fontadobe100dpi
+      #xlibs.fontadobe75dpi
+      #xlibs.fontadobeutopia100dpi
+      #xlibs.fontadobeutopia75dpi
+      #xlibs.fontadobeutopiatype1
+      #xlibs.fontarabicmisc
+      xlibs.fontbh100dpi
+      xlibs.fontbh75dpi
+      xlibs.fontbhlucidatypewriter100dpi
+      xlibs.fontbhlucidatypewriter75dpi
+      xlibs.fontbhttf
+      xlibs.fontbhtype1
+      xlibs.fontbitstream100dpi
+      xlibs.fontbitstream75dpi
+      xlibs.fontbitstreamtype1
+      #xlibs.fontcronyxcyrillic
+      xlibs.fontcursormisc
+      xlibs.fontdaewoomisc
+      xlibs.fontdecmisc
+      xlibs.fontibmtype1
+      xlibs.fontisasmisc
+      xlibs.fontjismisc
+      xlibs.fontmicromisc
+      xlibs.fontmisccyrillic
+      xlibs.fontmiscethiopic
+      xlibs.fontmiscmeltho
+      xlibs.fontmiscmisc
+      xlibs.fontmuttmisc
+      xlibs.fontschumachermisc
+      xlibs.fontscreencyrillic
+      xlibs.fontsonymisc
+      xlibs.fontsunmisc
+      xlibs.fontwinitzkicyrillic
+      xlibs.fontxfree86type1
     ];
   };
 
