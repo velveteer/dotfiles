@@ -1,3 +1,12 @@
 #!/usr/bin/env bash
 
-stow --restow $(ls -d */)
+stow --restow \
+	compton \
+	dunst \
+	git \
+	i3 \
+	termite \
+	tmux \
+	vim \
+	zsh
+	
