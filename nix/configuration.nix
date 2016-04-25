@@ -25,7 +25,7 @@
     "${pkgs.zsh}/bin/zsh"
   ];
 
-  time.timeZone = "US/Central";
+  time.timeZone = "US/Pacific";
 
   services.ntp.enable = true;
 
