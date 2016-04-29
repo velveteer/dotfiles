@@ -15,7 +15,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware = {
+    bluetooth.enable = true;
     pulseaudio.enable = true;
+    pulseaudio.support32Bit = true;
+    pulseaudio.package = pkgs.pulseaudioFull;
+    opengl.driSupport32Bit = true;
   };
 
   networking.hostName = "shodan"; # Define your hostname.
@@ -55,6 +59,10 @@
     programs = {
       bash.enableCompletion = true;
       zsh.enable = true;
+    };
+
+    packageOverrides = pkgs: {
+      bluez = pkgs.bluez5;
     };
   };
 
