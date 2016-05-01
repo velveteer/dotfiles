@@ -70,11 +70,15 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     (import ./VidyoDesktop/default.nix)
+    boot
+    cabal-install
     chromium
     compton
     curl
     docker
     dunst
+    fasd-git
+    ghc
     git
     i3lock
     i3status
@@ -96,6 +100,8 @@
   ] ++ (with python27Packages; [
     docker_compose
     udiskie
+  ]) ++ (with haskellPackages; [
+    purescript
   ]);
 
   # Enable the OpenSSH daemon.

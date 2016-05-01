@@ -46,6 +46,8 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'JulesWang/css.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'raichoo/purescript-vim'
+Plug 'guns/vim-clojure-static'
 
 " tmux status integration
 Plug 'edkolev/tmuxline.vim'
