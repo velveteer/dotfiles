@@ -9,4 +9,4 @@ stow --restow \
 	tmux \
 	vim \
 	zsh
-	
+

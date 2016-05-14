@@ -48,6 +48,8 @@ Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'raichoo/purescript-vim'
 Plug 'guns/vim-clojure-static'
+Plug 'groenewege/vim-less'
+"Plug 'skammer/vim-css-color'
 
 " tmux status integration
 Plug 'edkolev/tmuxline.vim'
@@ -206,6 +208,14 @@ command! Todo call s:todo()
 
 " Syntastic settings
 let g:syntastic_javascript_checkers = ['eslint']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " CtrlP options
 let g:ctrlp_map = '<c-p>'

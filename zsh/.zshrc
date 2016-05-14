@@ -53,7 +53,7 @@ plugins=(git docker fasd)
 
 # User configuration
 
-export PATH="/home/josh/bin:/home/josh/npm/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec"
+export PATH="/home/josh/bin:/home/josh/npm/bin:/home/josh/go/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -83,7 +83,7 @@ alias df='df --exclude-type=tmpfs'
 alias e='emacsclient -t'
 alias ec='emacsclient -c'
 alias ls='ls --color -F'
-alias ll='ls --color -lha'
+alias ll='ls --color -lh'
 alias vpn='sudo openconnect -b -u josh5700 https://vpn1.ord1.rackspace.com'
 alias shutdown='sudo systemctl poweroff'
 alias pbcopy='xclip -selection clipboard -in'
@@ -100,3 +100,17 @@ alias clean_images='sudo docker rmi $(sudo docker images -q)'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+activate() {
+  if [ $# -eq 0 ];
+  then
+    if [ -f .nix ];
+    then
+      nix-shell
+    else
+      echo '.nix file not found' 1>&2
+    fi
+  else
+      nix-shell ~/dotfiles/nix/environments/$1.nix
+  fi
+}

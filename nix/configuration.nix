@@ -49,6 +49,14 @@
     chromium = {
       enablePepperFlash = true;
       enablePepperPDF = true;
+      enableWideVine = true;
+      pulseSupport = true;
+    };
+
+    google-chrome = {
+      enablePepperFlash = true;
+      enablePepperPDF = true;
+      enableWideVine = true;
     };
 
     vim = {
@@ -77,9 +85,9 @@
     curl
     docker
     dunst
-    fasd-git
     ghc
     git
+    google-chrome
     i3lock
     i3status
     lua5
@@ -100,8 +108,6 @@
   ] ++ (with python27Packages; [
     docker_compose
     udiskie
-  ]) ++ (with haskellPackages; [
-    purescript
   ]);
 
   # Enable the OpenSSH daemon.
@@ -222,5 +228,4 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
-
 }
