@@ -10,8 +10,11 @@ Plug 'Shougo/neocomplete.vim'
 " File explorer
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+" Fix folding speed
+Plug 'Konfekt/FastFold'
+
 " git in Vim
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
 " Surround
@@ -47,9 +50,18 @@ Plug 'JulesWang/css.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'raichoo/purescript-vim'
-Plug 'guns/vim-clojure-static'
 Plug 'groenewege/vim-less'
-"Plug 'skammer/vim-css-color'
+
+" Clojure
+Plug 'tpope/vim-classpath'
+Plug 'guns/vim-clojure-static'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-salve'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
 
 " tmux status integration
 Plug 'edkolev/tmuxline.vim'
@@ -68,7 +80,7 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-colorscheme Tomorrow-Night-Eighties
+colorscheme Tomorrow-Night
 set t_ut=
 
 filetype plugin indent on          " Load plugins according to detected filetype.
@@ -101,6 +113,7 @@ set cursorline                     " Find the current line quickly.
 set wrapscan                       " Searches wrap around end-of-file.
 set report      =0                 " Always report changed lines.
 set synmaxcol   =200               " Only highlight the first 200 columns.
+set number                         " Yeah line numbers
 
 set list                           " Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
@@ -121,6 +134,7 @@ set undofile
 " Remove auto-comments
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+
 " }}}
 " ============================================================================
 " MAPPINGS {{{
@@ -129,6 +143,8 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " ----------------------------------------------------------------------------
 " Basic mappings
 " ----------------------------------------------------------------------------
+
+let mapleader = "\<Space>"
 
 " kj escaping
 inoremap kj <Esc>
@@ -175,6 +191,12 @@ map <leader>ba :1,1000 bd!<cr>
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" Move up and down on physical lines
+nnoremap j gj
+nnoremap k gk
+vnoremap j gj
+vnoremap k gk
+
 " }}}
 " ============================================================================
 " FUNCTIONS {{{
@@ -208,10 +230,6 @@ command! Todo call s:todo()
 
 " Syntastic settings
 let g:syntastic_javascript_checkers = ['eslint']
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -311,5 +329,10 @@ augroup vimrc
 
   " Delete trailing white space on save
   au BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
+
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
 
 augroup END

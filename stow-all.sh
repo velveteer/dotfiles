@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 stow --restow \
+	boot \
 	compton \
 	dunst \
 	git \
