@@ -49,7 +49,6 @@ Plug 'heavenshell/vim-jsdoc'
 Plug 'JulesWang/css.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
-Plug 'raichoo/purescript-vim'
 Plug 'groenewege/vim-less'
 
 " Clojure
@@ -63,8 +62,9 @@ Plug 'tpope/vim-salve'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 
-" tmux status integration
-Plug 'edkolev/tmuxline.vim'
+" Purescript
+Plug 'FrigoEU/psc-ide-vim'
+Plug 'raichoo/purescript-vim'
 
 " tmux pane/window support
 Plug 'tpope/vim-tbone'
@@ -80,21 +80,25 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-colorscheme Tomorrow-Night
-set t_ut=
+" colorscheme Tomorrow-Night
+" set t_ut=
+" set t_Co=256   " This is may or may not needed.
+
+set background=light
+colorscheme PaperColor
 
 filetype plugin indent on          " Load plugins according to detected filetype.
 syntax on                          " Enable syntax highlighting.
 
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
-set softtabstop =4                 " Tab key indents by 4 spaces.
-set shiftwidth  =4                 " >> indents by 4 spaces.
+set softtabstop =2                 " Tab key indents by 2 spaces.
+set shiftwidth  =2                 " >> indents by 2 spaces.
 set shiftround                     " >> indents to next multiple of 'shiftwidth'.
 
 set backspace   =indent,eol,start  " Make backspace work as you would expect.
 set hidden                         " Switch between buffers without having to save first.
-set laststatus  =2                 " Always show statusline.
+set laststatus  =0                 " Always show statusline.
 set display     =lastline          " Show as much as possible of the last line.
 
 set showmode                       " Show current mode in command-line.
@@ -130,9 +134,6 @@ set noswapfile
 " Stores undo state even when files are closed (in undodir)
 set undodir=$HOME/.vim/undo
 set undofile
-
-" Remove auto-comments
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 
 " }}}
@@ -197,6 +198,31 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+"Purescript
+"let g:psc_ide_log_level = 3
+au FileType purescript nmap <leader>t :PSCIDEtype<CR>
+au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
+au FileType purescript nmap <leader>r :PSCIDEload<CR>
+au FileType purescript nmap <leader>p :PSCIDEpursuit<CR>
+au FileType purescript nmap <leader>c :PSCIDEcaseSplit<CR>
+au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
+au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
+au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
+au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
+nmap <leader>g <C-]>
+
+au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
+au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
+au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
+
+au FileType purescript set conceallevel=1
+au FileType purescript set concealcursor=nvc
+au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
+
+function! PureScriptFoldLevel(l)
+  return getline(a:l) =~ "^\d*import"
+endfunction
+
 " }}}
 " ============================================================================
 " FUNCTIONS {{{
@@ -229,16 +255,19 @@ command! Todo call s:todo()
 " ============================================================================
 
 " Syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " CtrlP options
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|compiled|coverage)|(\.(swp|ico|git|svn))$'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|compiled|coverage|output)|(\.(swp|ico|git|svn))$'
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
@@ -334,5 +363,10 @@ augroup vimrc
   au Syntax * RainbowParenthesesLoadRound
   au Syntax * RainbowParenthesesLoadSquare
   au Syntax * RainbowParenthesesLoadBraces
+
+  " Remove auto-comments
+  au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+  au FileType purescript PSCIDEstart
+
 
 augroup END

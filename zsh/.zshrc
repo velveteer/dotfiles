@@ -15,7 +15,7 @@ ZSH_THEME="kolo"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -24,7 +24,7 @@ ZSH_THEME="kolo"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -53,7 +53,8 @@ plugins=(git docker fasd)
 
 # User configuration
 
-export PATH="/home/josh/bin:/home/josh/npm/bin:/home/josh/go/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec"
+export PATH="/home/josh/bin:/home/josh/npm/bin:/home/josh/go/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec:$PATH"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -89,6 +90,7 @@ alias shutdown='sudo systemctl poweroff'
 alias pbcopy='xclip -selection clipboard -in'
 alias clean_docker='sudo docker stop $(sudo docker ps -a -q) && sudo docker rm $(sudo docker ps -a -q)'
 alias clean_images='sudo docker rmi $(sudo docker images -q)'
+alias top='htop'
 
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 

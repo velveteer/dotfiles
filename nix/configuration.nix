@@ -10,8 +10,7 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
-  # Use the gummiboot efi boot loader.
-  boot.loader.gummiboot.enable = true;
+  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware = {
@@ -20,28 +19,13 @@
     pulseaudio.support32Bit = true;
     pulseaudio.package = pkgs.pulseaudioFull;
     opengl.driSupport32Bit = true;
+    opengl.extraPackages = [ pkgs.vaapiIntel ];
   };
 
   networking.hostName = "shodan"; # Define your hostname.
   networking.networkmanager.enable = true;
 
-  environment.shells = [
-    "${pkgs.zsh}/bin/zsh"
-  ];
-
   time.timeZone = "US/Pacific";
-
-  services.ntp.enable = true;
-
-  services.acpid.enable = true;
-
-  security.sudo.wheelNeedsPassword = false;
-
-  # NOTE: changes to this take effect on login.
-  environment.sessionVariables = {
-    EDITOR = "vim";
-    NIXPKGS_ALLOW_UNFREE = "1";
-  };
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -57,6 +41,7 @@
       enablePepperFlash = true;
       enablePepperPDF = true;
       enableWideVine = true;
+      pulseSupport = true;
     };
 
     vim = {
@@ -65,7 +50,6 @@
     };
 
     programs = {
-      bash.enableCompletion = true;
       zsh.enable = true;
     };
 
@@ -74,41 +58,52 @@
     };
   };
 
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    (import ./VidyoDesktop/default.nix)
-    boot
-    cabal-install
-    chromium
-    compton
-    curl
-    docker
-    dunst
-    ghc
-    git
-    google-chrome
-    i3lock
-    i3status
-    lua5
-    nodejs-5_x
-    parcellite
-    pavucontrol
-    python
-    rofi
-    stow
-    termite
-    tmux
-    unclutter
-    vim_configurable
-    wget
-    xorg.xbacklight
-    xclip
-    zsh
-  ] ++ (with python27Packages; [
-    docker_compose
-    udiskie
-  ]);
+  environment = {
+    systemPackages = with pkgs; [
+      (import ./VidyoDesktop/default.nix)
+      boot
+      cabal-install
+      chromium
+      compton
+      curl
+      docker
+      dunst
+      ghc
+      git
+      google-chrome
+      i3lock
+      i3status
+      lua5
+      nodejs-5_x
+      parcellite
+      pavucontrol
+      python
+      rofi
+      stow
+      termite
+      tmux
+      unclutter
+      vim_configurable
+      wget
+      xorg.xbacklight
+      xclip
+      zsh
+    ] ++ (with python27Packages; [
+      docker_compose
+      udiskie
+    ]);
+    shells = [
+      "${pkgs.zsh}/bin/zsh"
+    ];
+    sessionVariables = {
+      EDITOR = "vim";
+      NIXPKGS_ALLOW_UNFREE = "1";
+    };
+  };
+
+  services.ntp.enable = true;
+
+  services.acpid.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -121,7 +116,6 @@
   services.xserver = {
     enable = true;
     layout = "us";
-    vaapiDrivers = [ pkgs.vaapiIntel ];
 
     displayManager = {
       slim = {
@@ -167,6 +161,8 @@
     shell = "${pkgs.zsh}/bin/zsh";
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Enable Docker
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
@@ -181,7 +177,7 @@
       terminus_font
       cantarell_fonts
       dejavu_fonts
-      #dosemu_fonts
+      dosemu_fonts
       freefont_ttf
       liberation_ttf
       terminus_font
