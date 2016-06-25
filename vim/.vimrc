@@ -4,24 +4,20 @@
 
 call plug#begin('~/.vim/plugged')
 
+" Airline for statusbar
+Plug 'vim-airline/vim-airline'
+
 " Autocomplete
 Plug 'Shougo/neocomplete.vim'
-
-" File explorer
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Fix folding speed
 Plug 'Konfekt/FastFold'
 
 " git in Vim
-" Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Surround
 Plug 'tpope/vim-surround'
-
-" Heuristically set buffer options
-Plug 'tpope/vim-sleuth'
 
 " Tabularize
 Plug 'godlygeek/tabular'
@@ -50,14 +46,15 @@ Plug 'JulesWang/css.vim'
 Plug 'honza/dockerfile.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'groenewege/vim-less'
+Plug 'joukevandermaas/vim-ember-hbs'
 
 " Clojure
 Plug 'tpope/vim-classpath'
 Plug 'guns/vim-clojure-static'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
-Plug 'tpope/vim-fireplace'
+" Plug 'guns/vim-sexp'
+" Plug 'tpope/vim-sexp-mappings-for-regular-people'
+" Plug 'tpope/vim-fireplace'
 Plug 'tpope/vim-salve'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
@@ -66,7 +63,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'FrigoEU/psc-ide-vim'
 Plug 'raichoo/purescript-vim'
 
-" tmux pane/window support
+" tmux stuff
+Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-tbone'
 
 " Themes
@@ -84,8 +82,8 @@ call plug#end()
 " set t_ut=
 " set t_Co=256   " This is may or may not needed.
 
-set background=light
-colorscheme PaperColor
+set background=dark
+colorscheme gruvbox
 
 filetype plugin indent on          " Load plugins according to detected filetype.
 syntax on                          " Enable syntax highlighting.
@@ -98,7 +96,7 @@ set shiftround                     " >> indents to next multiple of 'shiftwidth'
 
 set backspace   =indent,eol,start  " Make backspace work as you would expect.
 set hidden                         " Switch between buffers without having to save first.
-set laststatus  =0                 " Always show statusline.
+set laststatus  =2                 " Always show statusline.
 set display     =lastline          " Show as much as possible of the last line.
 
 set showmode                       " Show current mode in command-line.
@@ -118,6 +116,8 @@ set wrapscan                       " Searches wrap around end-of-file.
 set report      =0                 " Always report changed lines.
 set synmaxcol   =200               " Only highlight the first 200 columns.
 set number                         " Yeah line numbers
+set timeoutlen=1000                " Remove delay when changing modes
+set ttimeoutlen=0
 
 set list                           " Show non-printable characters.
 if has('multi_byte') && &encoding ==# 'utf-8'
@@ -147,10 +147,10 @@ set undofile
 
 let mapleader = "\<Space>"
 
-" kj escaping
-inoremap kj <Esc>
-xnoremap kj <Esc>
-cnoremap kj <C-c>
+" sd escaping
+inoremap sd <Esc>
+xnoremap sd <Esc>
+cnoremap sd <C-c>
 
 " <F10> | NERD Tree
 inoremap <F10> <esc>:NERDTreeToggle<cr>
@@ -164,12 +164,6 @@ map <leader>pp :setlocal paste!<cr>
 
 " Remap VIM 0 to first non-blank character
 map 0 ^
-
-" Disable CTRL-A on tmux or on screen
-if $TERM =~ 'screen'
-  nnoremap <C-a> <nop>
-  nnoremap <Leader><C-a> <C-a>
-endif
 
 " No Ex mode (see :help Q)
 nnoremap Q <nop>

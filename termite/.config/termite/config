@@ -9,7 +9,7 @@ allow_bold = false
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = mononoki 10
+font = ttyp0 10
 scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
@@ -44,39 +44,44 @@ foreground = #4d4d4c
 # if unset, will reverse foreground and background
 highlight = #3E999F
 
-# Colors from color0 to color254 can be set
+[colors]
+# hard contrast: background = #1d2021
+background = #282828
+# soft contrast: background = #32302f
+foreground = #ebdbb2
+foreground_bold = #ebdbb2
 
-# Black + Grey
-color0 = #EDEDED
-color8 = #969694
+# dark0 + gray
+color0 = #282828
+color8 = #928374
 
-# Red + Bright Red
-color1 = #D7005F
-color9 = #D7005F
+# neutral_red + bright_red
+color1 = #cc241d
+color9 = #fb4934
 
-# Green + Bright Green
-color2 = #718C00
-color10 = #718C00
+# neutral_green + bright_green
+color2 = #98971a
+color10 = #b8bb26
 
-# Yellow (Orange) + Bright Yellow (Yellow)
-color3 = #D75F00
-color11 = #D75F00
+# neutral_yellow + bright_yellow
+color3 = #d79921
+color11 = #fabd2f
 
-# Blue + Bright Blue
-color4 = #4271AE
-color12 = #4271AE
+# neutral_blue + bright_blue
+color4 = #458588
+color12 = #83a598
 
-# Magenta (Purple) + Bright Magenta
-color5 = #8959A8
-color13 = #8959A8
+# neutral_purple + bright_purple
+color5 = #b16286
+color13 = #d3869b
 
-# Cyan (Aqua) + Bright Cyan
-color6 =  #3E999F
-color14 = #3E999F
+# neutral_aqua + faded_aqua
+color6 = #689d6a
+color14 = #8ec07c
 
-# Light Grey (Selection) + White (Current Line)
-color7 = #F5F5F5
-color15 = #4D4D4C
+# light4 + light1
+color7 = #a89984
+color15 = #ebdbb2
 
 [hints]
 #font = Monospace 12
