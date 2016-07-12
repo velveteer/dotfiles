@@ -16,6 +16,9 @@ Plug 'Konfekt/FastFold'
 " git in Vim
 Plug 'airblade/vim-gitgutter'
 
+" Heuristically set buffer options
+Plug 'tpope/vim-sleuth'
+
 " Surround
 Plug 'tpope/vim-surround'
 
@@ -193,7 +196,7 @@ vnoremap j gj
 vnoremap k gk
 
 "Purescript
-"let g:psc_ide_log_level = 3
+" let g:psc_ide_log_level = 3
 au FileType purescript nmap <leader>t :PSCIDEtype<CR>
 au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
 au FileType purescript nmap <leader>r :PSCIDEload<CR>
@@ -315,10 +318,6 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 " }}}
 " ============================================================================
@@ -360,7 +359,11 @@ augroup vimrc
 
   " Remove auto-comments
   au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-  au FileType purescript PSCIDEstart
+  " au FileType purescript PSCIDEstart
 
+  " Enable omni completion.
+  au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 augroup END
