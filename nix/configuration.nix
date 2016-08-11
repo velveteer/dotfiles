@@ -30,19 +30,6 @@
   nixpkgs.config = {
     allowUnfree = true;
 
-    chromium = {
-      enableAdobeFlash = true;
-      enablePepperFlash = true;
-      pulseSupport = true;
-    };
-
-    google-chrome = {
-      enablePepperFlash = true;
-      enablePepperPDF = true;
-      enableWideVine = true;
-      pulseSupport = true;
-    };
-
     vim = {
       lua = true;
       python = true;
@@ -59,21 +46,16 @@
 
   environment = {
     systemPackages = with pkgs; [
-      (import ./VidyoDesktop/default.nix)
-      boot
-      cabal-install
-      chromium
       compton
       curl
-      docker
       dunst
-      ghc
       git
-      google-chrome
+      htop
       i3lock
       i3status
+      iotop
+      lsof
       lua5
-      nodejs-5_x
       parcellite
       pavucontrol
       python
@@ -82,7 +64,7 @@
       termite
       tmux
       unclutter
-      vim_configurable
+      vimHugeX
       wget
       xorg.xbacklight
       xclip
@@ -193,55 +175,40 @@
     enableFontDir = true;
 
     fonts = with pkgs; [
-      hack-font
-      terminus_font
+      corefonts
+      anonymousPro
+      aurulent-sans
+      bakoma_ttf
       cantarell_fonts
+      crimson
       dejavu_fonts
+      dina-font
       dosemu_fonts
+      fantasque-sans-mono
+      fira
+      fira-code
+      fira-mono
       freefont_ttf
+      hack-font
+      hasklig
+      inconsolata
       liberation_ttf
+      meslo-lg
+      powerline-fonts
+      proggyfonts
+      source-code-pro
+      source-sans-pro
+      source-serif-pro
       terminus_font
-      #ubuntu_font_family
-      #ucsFonts
-      #unifont
-      #vistafonts
-      xlibs.fontadobe100dpi
-      xlibs.fontadobe75dpi
-      xlibs.fontadobeutopia100dpi
-      xlibs.fontadobeutopia75dpi
-      xlibs.fontadobeutopiatype1
-      #xlibs.fontarabicmisc
-      xlibs.fontbh100dpi
-      xlibs.fontbh75dpi
-      xlibs.fontbhlucidatypewriter100dpi
-      xlibs.fontbhlucidatypewriter75dpi
-      xlibs.fontbhttf
-      xlibs.fontbhtype1
-      xlibs.fontbitstream100dpi
-      xlibs.fontbitstream75dpi
-      xlibs.fontbitstreamtype1
-      #xlibs.fontcronyxcyrillic
-      xlibs.fontcursormisc
-      xlibs.fontdaewoomisc
-      xlibs.fontdecmisc
-      xlibs.fontibmtype1
-      xlibs.fontisasmisc
-      xlibs.fontjismisc
-      xlibs.fontmicromisc
-      xlibs.fontmisccyrillic
-      xlibs.fontmiscethiopic
-      xlibs.fontmiscmeltho
-      xlibs.fontmiscmisc
-      xlibs.fontmuttmisc
-      xlibs.fontschumachermisc
-      xlibs.fontscreencyrillic
-      xlibs.fontsonymisc
-      xlibs.fontsunmisc
-      xlibs.fontwinitzkicyrillic
-      xlibs.fontxfree86type1
+      tewi-font
+      ttf_bitstream_vera
+      ubuntu_font_family
+      unifont
+      vistafonts
+      xlsfonts
     ];
   };
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.03";
+  system.stateVersion = "16.09";
 }

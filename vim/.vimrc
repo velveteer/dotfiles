@@ -63,8 +63,11 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 
 " Purescript
-Plug 'FrigoEU/psc-ide-vim'
 Plug 'raichoo/purescript-vim'
+Plug 'FrigoEU/psc-ide-vim'
+
+" Rust
+Plug 'rust-lang/rust.vim'
 
 " tmux stuff
 Plug 'edkolev/tmuxline.vim'
@@ -359,6 +362,8 @@ augroup vimrc
 
   " Remove auto-comments
   au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+  " Autostart psc-ide-server
   " au FileType purescript PSCIDEstart
 
   " Enable omni completion.
