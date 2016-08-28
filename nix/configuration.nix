@@ -1,15 +1,14 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
+  imports = [
+    /etc/nixos/hardware-configuration.nix
+  ];
 
+  # The NixOS release to be compatible with for stateful data such as databases.
+  system.stateVersion = "16.09";
+
+  # EFI bootstrap config
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -22,11 +21,13 @@
     opengl.extraPackages = [ pkgs.vaapiIntel ];
   };
 
-  networking.hostName = "shodan"; # Define your hostname.
+  # Hostname and network-manager
+  networking.hostName = "shodan";
   networking.networkmanager.enable = true;
 
   time.timeZone = "US/Pacific";
 
+  # System nix config
   nixpkgs.config = {
     allowUnfree = true;
 
@@ -44,35 +45,13 @@
     };
   };
 
+  # System packages
   environment = {
     systemPackages = with pkgs; [
-      compton
-      curl
-      dunst
-      git
-      htop
-      i3lock
-      i3status
-      iotop
-      lsof
-      lua5
-      parcellite
-      pavucontrol
-      python
-      rofi
-      stow
-      termite
-      tmux
-      unclutter
-      vimHugeX
-      wget
-      xorg.xbacklight
-      xclip
-      zsh
-    ] ++ (with python27Packages; [
-      docker_compose
-      udiskie
-    ]);
+      compton curl dunst git htop i3lock i3status iotop lsof
+      parcellite pavucontrol python rofi stow termite tmux
+      unclutter vimHugeX wget xorg.xbacklight xclip zsh
+    ] ++ (with python27Packages; [ docker_compose udiskie ]);
     shells = [
       "${pkgs.zsh}/bin/zsh"
     ];
@@ -82,18 +61,18 @@
     };
   };
 
+  # NTP
   services.ntp.enable = true;
 
+  # Power management (e.g. suspend on lid close)
   services.acpid.enable = true;
+  services.upower.enable = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # Enable Docker and use btrfs
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
 
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable the X11 windowing system.
-
+  # Xorg configuration
   services.xserver = {
     enable = true;
     layout = "us";
@@ -151,8 +130,6 @@
     };
   };
 
-  services.upower.enable = true;
-
   # Define a user account. Don't forget to set a password with `passwd`.
   users.extraUsers.josh = {
     name = "josh";
@@ -163,52 +140,17 @@
     shell = "${pkgs.zsh}/bin/zsh";
   };
 
+  # Don't use this on a server, k?
   security.sudo.wheelNeedsPassword = false;
-
-  # Enable Docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
 
   # Fonts
   fonts = {
     enableCoreFonts = true;
     enableFontDir = true;
-
     fonts = with pkgs; [
-      corefonts
-      anonymousPro
-      aurulent-sans
-      bakoma_ttf
-      cantarell_fonts
-      crimson
-      dejavu_fonts
-      dina-font
-      dosemu_fonts
-      fantasque-sans-mono
-      fira
-      fira-code
-      fira-mono
-      freefont_ttf
-      hack-font
-      hasklig
-      inconsolata
-      liberation_ttf
-      meslo-lg
-      powerline-fonts
-      proggyfonts
-      source-code-pro
-      source-sans-pro
-      source-serif-pro
-      terminus_font
-      tewi-font
-      ttf_bitstream_vera
-      ubuntu_font_family
-      unifont
-      vistafonts
-      xlsfonts
+      corefonts cantarell_fonts hack-font source-code-pro symbola
+      terminus_font ubuntu_font_family unifont vistafonts xlsfonts
     ];
   };
 
-  # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "16.09";
 }

@@ -55,12 +55,9 @@ Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'tpope/vim-classpath'
 Plug 'guns/vim-clojure-static'
 Plug 'kien/rainbow_parentheses.vim'
-" Plug 'guns/vim-sexp'
-" Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Plug 'tpope/vim-fireplace'
-Plug 'tpope/vim-salve'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-dispatch'
 
 " Purescript
 Plug 'raichoo/purescript-vim'
@@ -83,10 +80,6 @@ call plug#end()
 " ============================================================================
 " BASIC SETTINGS {{{
 " ============================================================================
-
-" colorscheme Tomorrow-Night
-" set t_ut=
-" set t_Co=256   " This is may or may not needed.
 
 set background=dark
 colorscheme gruvbox
@@ -268,6 +261,9 @@ let g:syntastic_check_on_wq = 0
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|compiled|coverage|output)|(\.(swp|ico|git|svn))$'
+
+" Get JSX highlighting in non-JSX files
+let g:jsx_ext_required = 0
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
