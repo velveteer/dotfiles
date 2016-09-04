@@ -113,6 +113,6 @@ activate() {
       echo '.nix file not found' 1>&2
     fi
   else
-      nix-shell ~/dotfiles/nix/environments/$1.nix
+      nix-shell ~/dotfiles/nix/sandboxes/$1.nix
   fi
 }

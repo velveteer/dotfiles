@@ -68,6 +68,13 @@
   services.acpid.enable = true;
   services.upower.enable = true;
 
+  # Redshift
+  services.redshift.enable = true;
+  services.redshift.brightness.day = "0.95";
+  services.redshift.brightness.night = "0.7";
+  services.redshift.latitude = "45";
+  services.redshift.longitude = "122";
+
   # Enable Docker and use btrfs
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
@@ -111,7 +118,6 @@
       sessionCommands = ''
         ${pkgs.xlibs.xset}/bin/xset r rate 200 60  # set the keyboard repeat rate
         ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/dotfiles/backgrounds/wall.jpg &
-        ${pkgs.compton}/bin/compton -b &
         ${pkgs.networkmanagerapplet}/bin/nm-applet &
         ${pkgs.dunst}/bin/dunst &
         ${pkgs.parcellite}/bin/parcellite -n &
