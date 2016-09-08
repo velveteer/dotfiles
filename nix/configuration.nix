@@ -19,6 +19,7 @@
     pulseaudio.package = pkgs.pulseaudioFull;
     opengl.driSupport32Bit = true;
     opengl.extraPackages = [ pkgs.vaapiIntel ];
+    opengl.extraPackages32 = [ pkgs.vaapiIntel ];
   };
 
   # Hostname and network-manager
@@ -119,6 +120,7 @@
         ${pkgs.xlibs.xset}/bin/xset r rate 200 60  # set the keyboard repeat rate
         ${pkgs.feh}/bin/feh --no-fehbg --bg-scale ~/dotfiles/backgrounds/wall.jpg &
         ${pkgs.networkmanagerapplet}/bin/nm-applet &
+        ${pkgs.compton}/bin/compton -b &
         ${pkgs.dunst}/bin/dunst &
         ${pkgs.parcellite}/bin/parcellite -n &
         ${pkgs.unclutter}/bin/unclutter -root -visible &

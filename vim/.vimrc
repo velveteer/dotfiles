@@ -4,11 +4,16 @@
 
 call plug#begin('~/.vim/plugged')
 
+" tmux
+Plug 'edkolev/tmuxline.vim'
+Plug 'tpope/vim-tbone'
+
+" Themes
+Plug 'flazz/vim-colorschemes'
+
+
 " Airline for statusbar
 Plug 'vim-airline/vim-airline'
-
-" Autocomplete
-Plug 'Shougo/neocomplete.vim'
 
 " Fix folding speed
 Plug 'Konfekt/FastFold'
@@ -40,16 +45,19 @@ Plug 'edsono/vim-matchit'
 " Syntax checking
 Plug 'scrooloose/syntastic'
 
-" Langauge-related plugins
+" Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
 Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'JulesWang/css.vim'
-Plug 'honza/dockerfile.vim'
-Plug 'plasticboy/vim-markdown'
+
+" CSS
 Plug 'groenewege/vim-less'
+Plug 'JulesWang/css.vim'
+
+" HTML
 Plug 'joukevandermaas/vim-ember-hbs'
+Plug 'plasticboy/vim-markdown'
 
 " Clojure
 Plug 'tpope/vim-classpath'
@@ -65,13 +73,6 @@ Plug 'FrigoEU/psc-ide-vim'
 
 " Rust
 Plug 'rust-lang/rust.vim'
-
-" tmux stuff
-Plug 'edkolev/tmuxline.vim'
-Plug 'tpope/vim-tbone'
-
-" Themes
-Plug 'flazz/vim-colorschemes'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -98,7 +99,6 @@ set hidden                         " Switch between buffers without having to sa
 set laststatus  =2                 " Always show statusline.
 set display     =lastline          " Show as much as possible of the last line.
 
-set showmode                       " Show current mode in command-line.
 set showcmd                        " Show already typed keys when more are expected.
 
 set incsearch                      " Highlight while searching with / or ?.
@@ -133,6 +133,25 @@ set noswapfile
 " Stores undo state even when files are closed (in undodir)
 set undodir=$HOME/.vim/undo
 set undofile
+
+" Use ``indent`` based folding
+set foldmethod=indent
+" Disable all folds on file open until `zc` or `zM` etc is used
+set nofoldenable
+
+" Don't display the current mode (Insert, Visual, Replace)
+" in the status line. This info is already shown in the
+" Airline status bar.
+set noshowmode
+
+" Make it obvious where 80 characters is
+set textwidth=80
+set colorcolumn=+1
+
+" Start scrolling before cursor gets to the edge
+set scrolloff=5
+set sidescrolloff=15
+set sidescroll=1
 
 
 " }}}
@@ -191,30 +210,9 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-"Purescript
-" let g:psc_ide_log_level = 3
-au FileType purescript nmap <leader>t :PSCIDEtype<CR>
-au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
-au FileType purescript nmap <leader>r :PSCIDEload<CR>
-au FileType purescript nmap <leader>p :PSCIDEpursuit<CR>
-au FileType purescript nmap <leader>c :PSCIDEcaseSplit<CR>
-au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
-au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
-au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
-au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
-nmap <leader>g <C-]>
-
-au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
-au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
-au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
-
-au FileType purescript set conceallevel=1
-au FileType purescript set concealcursor=nvc
-au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
-
-function! PureScriptFoldLevel(l)
-  return getline(a:l) =~ "^\d*import"
-endfunction
+" Switch buffers
+nnoremap <silent> H :bp<CR>
+nnoremap <silent> L :bn<CR>
 
 " }}}
 " ============================================================================
@@ -288,35 +286,13 @@ for m in ['n', 'x']
 endfor
 
 " ----------------------------------------------------------------------------
-" neocomplete
+" airline
 " ----------------------------------------------------------------------------
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
-
+let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
+let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
+let g:airline#extensions#tabline#fnamecollapse = 0
+let g:airline#extensions#tabline#tab_nr_type = 1 " Show tab number
+let g:airline#extensions#tabline#buffer_nr_show = 0
 
 " }}}
 " ============================================================================
@@ -359,12 +335,38 @@ augroup vimrc
   " Remove auto-comments
   au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-  " Autostart psc-ide-server
-  " au FileType purescript PSCIDEstart
-
   " Enable omni completion.
   au FileType css setlocal omnifunc=csscomplete#CompleteCSS
   au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+augroup END
+
+augroup purescript
+  au FileType purescript nmap <leader>t :PSCIDEtype<CR>
+  au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
+  au FileType purescript nmap <leader>r :PSCIDEload<CR>
+  au FileType purescript nmap <leader>p :PSCIDEpursuit<CR>
+  au FileType purescript nmap <leader>c :PSCIDEcaseSplit<CR>
+  au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
+  au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
+  au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
+  au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
+  nmap <leader>g <C-]>
+
+  au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
+  au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
+  au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
+
+  au FileType purescript set conceallevel=1
+  au FileType purescript set concealcursor=nvc
+  au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
+
+  function! PureScriptFoldLevel(l)
+    return getline(a:l) =~ "^\d*import"
+  endfunction
+
+  " Autostart psc-ide-server
+  " au FileType purescript PSCIDEstart
 
 augroup END
