@@ -10,7 +10,7 @@ Plug 'tpope/vim-tbone'
 
 " Themes
 Plug 'flazz/vim-colorschemes'
-
+Plug 'jacoborus/tender'
 
 " Airline for statusbar
 Plug 'vim-airline/vim-airline'
@@ -50,6 +50,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
 Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
+Plug 'posva/vim-vue'
 
 " CSS
 Plug 'groenewege/vim-less'
@@ -70,6 +71,9 @@ Plug 'tpope/vim-sexp-mappings-for-regular-people'
 " Purescript
 Plug 'raichoo/purescript-vim'
 Plug 'FrigoEU/psc-ide-vim'
+
+" Go
+Plug 'fatih/vim-go'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -145,14 +149,12 @@ set nofoldenable
 set noshowmode
 
 " Make it obvious where 80 characters is
-set textwidth=80
 set colorcolumn=+1
 
 " Start scrolling before cursor gets to the edge
 set scrolloff=5
 set sidescrolloff=15
 set sidescroll=1
-
 
 " }}}
 " ============================================================================
@@ -196,7 +198,7 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+map <leader>bd :bdelete<cr>
 
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
@@ -263,6 +265,11 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|co
 " Get JSX highlighting in non-JSX files
 let g:jsx_ext_required = 0
 
+" vim-go + syntastic fixes
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+let g:go_list_type = "quickfix"
+
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
 " ----------------------------------------------------------------------------
@@ -288,6 +295,12 @@ endfor
 " ----------------------------------------------------------------------------
 " airline
 " ----------------------------------------------------------------------------
+
+" enable tender airline theme
+let g:tender_airline = 1
+" set airline theme
+let g:airline_theme = 'tender'
+
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
 let g:airline#extensions#tabline#fnamecollapse = 0
@@ -339,6 +352,7 @@ augroup vimrc
   au FileType css setlocal omnifunc=csscomplete#CompleteCSS
   au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
   au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  au FileType purescript setlocal omnifunc=PSCIDEomni
 
 augroup END
 
@@ -354,17 +368,17 @@ augroup purescript
   au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
   nmap <leader>g <C-]>
 
-  au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
-  au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
-  au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
+  " au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
+  " au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
+  " au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
 
-  au FileType purescript set conceallevel=1
-  au FileType purescript set concealcursor=nvc
-  au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
+  " au FileType purescript set conceallevel=1
+  " au FileType purescript set concealcursor=nvc
+  " au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
 
-  function! PureScriptFoldLevel(l)
-    return getline(a:l) =~ "^\d*import"
-  endfunction
+  " function! PureScriptFoldLevel(l)
+  "   return getline(a:l) =~ "^\d*import"
+  " endfunction
 
   " Autostart psc-ide-server
   " au FileType purescript PSCIDEstart

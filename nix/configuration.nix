@@ -28,6 +28,8 @@
 
   time.timeZone = "US/Pacific";
 
+  nix.useSandbox = true;
+
   # System nix config
   nixpkgs.config = {
     allowUnfree = true;
@@ -49,7 +51,7 @@
   # System packages
   environment = {
     systemPackages = with pkgs; [
-      compton curl dunst git htop i3lock i3status iotop lsof
+      bind compton curl dunst git go htop i3lock i3status iotop lsof
       parcellite pavucontrol python rofi stow termite tmux
       unclutter vimHugeX wget xorg.xbacklight xclip zsh
     ] ++ (with python27Packages; [ docker_compose udiskie ]);
@@ -59,6 +61,9 @@
     sessionVariables = {
       EDITOR = "vim";
       NIXPKGS_ALLOW_UNFREE = "1";
+    };
+    variables = {
+      GOROOT = [ "${pkgs.go.out}/share/go" ];
     };
   };
 
@@ -141,7 +146,7 @@
   # Define a user account. Don't forget to set a password with `passwd`.
   users.extraUsers.josh = {
     name = "josh";
-    extraGroups = [ "wheel" "networkmanager" "docker"];
+    extraGroups = ["wheel" "networkmanager" "docker"];
     uid = 1000;
     createHome = true;
     home = "/home/josh";

@@ -53,7 +53,9 @@ plugins=(git docker fasd)
 
 # User configuration
 
-export PATH="/home/josh/bin:/home/josh/npm/bin:/home/josh/go/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec:$PATH"
+export GOPATH="$HOME/go"
+
+export PATH="/home/josh/bin:/home/josh/npm/bin:/home/josh/go/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec:$PATH:$GOPATH/bin"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
