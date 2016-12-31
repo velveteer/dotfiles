@@ -55,7 +55,7 @@ plugins=(git docker fasd)
 
 export GOPATH="$HOME/go"
 
-export PATH="/home/josh/bin:/home/josh/npm/bin:/home/josh/go/bin:/var/setuid-wrappers:/home/josh/.nix-profile/bin:/home/josh/.nix-profile/sbin:/home/josh/.nix-profile/lib/kde4/libexec:/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/nix/var/nix/profiles/default/lib/kde4/libexec:/run/current-system/sw/bin:/run/current-system/sw/sbin:/run/current-system/sw/lib/kde4/libexec:$PATH:$GOPATH/bin"
+export PATH="$HOME/purescript:$PATH:$GOPATH/bin"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -87,12 +87,11 @@ alias e='emacsclient -t'
 alias ec='emacsclient -c'
 alias ls='ls --color -F'
 alias ll='ls --color -lh'
-alias vpn='sudo openconnect -b -u josh5700 https://vpn1.ord1.rackspace.com'
-alias shutdown='sudo systemctl poweroff'
 alias pbcopy='xclip -selection clipboard -in'
 alias clean_docker='sudo docker stop $(sudo docker ps -a -q) && sudo docker rm $(sudo docker ps -a -q)'
 alias clean_images='sudo docker rmi $(sudo docker images -q)'
 alias top='htop'
+alias startx="startx -- -keeptty"
 
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 

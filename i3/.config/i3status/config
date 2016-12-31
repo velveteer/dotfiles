@@ -6,7 +6,6 @@ general {
 
 order += "cpu_usage"
 order += "disk /"
-order += "disk /var/lib/docker"
 order += "battery 0"
 order += "tztime local"
 order += "volume master"
@@ -14,9 +13,9 @@ order += "volume master"
 battery 0 {
     format = "%status %percentage" #%remaining %emptytime"
     format_down = "No battery"
-    status_chr = "⚇ CHR"
-    status_bat = "⚡ BAT"
-    status_full = "☻ FULL"
+    status_chr = "CHR"
+    status_bat = "BAT"
+    status_full = "FULL"
     path = "/sys/class/power_supply/BAT%d/uevent"
     low_threshold = 10
 }

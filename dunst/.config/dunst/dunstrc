@@ -1,5 +1,5 @@
 [global]
-    font = Terminus 10
+    font = terminus 16
 
     format = "%a: %s %b"
     sort = yes

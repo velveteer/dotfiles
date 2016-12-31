@@ -89,8 +89,9 @@ call plug#end()
 set background=dark
 colorscheme gruvbox
 
-filetype plugin indent on          " Load plugins according to detected filetype.
 syntax on                          " Enable syntax highlighting.
+filetype on
+filetype plugin indent on          " Load plugins according to detected filetype.
 
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
@@ -171,10 +172,6 @@ let mapleader = "\<Space>"
 inoremap sd <Esc>
 xnoremap sd <Esc>
 cnoremap sd <C-c>
-
-" <F10> | NERD Tree
-inoremap <F10> <esc>:NERDTreeToggle<cr>
-nnoremap <F10> :NERDTreeToggle<cr>
 
 " Fast saving
 nmap <leader>w :w!<cr>
