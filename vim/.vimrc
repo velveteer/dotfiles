@@ -40,43 +40,45 @@ Plug 'tpope/vim-commentary'
 Plug 'kien/ctrlp.vim'
 
 " Match everything with %
-Plug 'edsono/vim-matchit'
+Plug 'jwhitley/vim-matchit'
 
 " Syntax checking
 Plug 'scrooloose/syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'posva/vim-vue'
+Plug 'posva/vim-vue', { 'for': 'vue' }
 
 " CSS
-Plug 'groenewege/vim-less'
+Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'JulesWang/css.vim'
 
 " HTML
-Plug 'joukevandermaas/vim-ember-hbs'
 Plug 'plasticboy/vim-markdown'
 
 " Clojure
-Plug 'tpope/vim-classpath'
-Plug 'guns/vim-clojure-static'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'guns/vim-sexp'
-Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'tpope/vim-classpath', { 'for': 'clojure' }
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'guns/vim-sexp', { 'for': 'clojure' }
+Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 " Plug 'tpope/vim-fireplace'
 
+" RAINBOWS
+Plug 'kien/rainbow_parentheses.vim'
+
 " Purescript
-Plug 'raichoo/purescript-vim'
-Plug 'FrigoEU/psc-ide-vim'
+Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
+Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
 
 " Go
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 
 " Rust
-Plug 'rust-lang/rust.vim'
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -115,7 +117,7 @@ set lazyredraw                     " Only redraw when necessary.
 set splitbelow                     " Open new windows below the current window.
 set splitright                     " Open new windows right of the current window.
 
-set cursorline                     " Find the current line quickly.
+set nocursorline                   " (OFF) Find the current line quickly.
 set wrapscan                       " Searches wrap around end-of-file.
 set report      =0                 " Always report changed lines.
 set synmaxcol   =200               " Only highlight the first 200 columns.
@@ -263,9 +265,9 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|co
 let g:jsx_ext_required = 0
 
 " vim-go + syntastic fixes
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:go_list_type = "quickfix"
+" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+" let g:go_list_type = "quickfix"
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
@@ -309,6 +311,27 @@ let g:airline#extensions#tabline#buffer_nr_show = 0
 " AUTOCMD {{{
 " ============================================================================
 
+" Utility function to delete trailing white space
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+" use it on saving 
+augroup whitespace
+  autocmd!
+  autocmd BufWrite *.js,*.vue,*.hs,*.purs :call DeleteTrailingWS()
+augroup END
+
+" Return to last edit position when opening files (You want this!)
+augroup last_edit
+  autocmd!
+  autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+augroup END
+
 augroup vimrc
   autocmd!
 
@@ -328,15 +351,6 @@ augroup vimrc
     au VimLeave * call system('tmux set-window automatic-rename on')
   endif
 
-  " Return to last edit position when opening files (You want this!)
-  au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \ exe "normal! g`\"" |
-        \ endif
-
-  " Delete trailing white space on save
-  au BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
-
   au VimEnter * RainbowParenthesesToggle
   au Syntax * RainbowParenthesesLoadRound
   au Syntax * RainbowParenthesesLoadSquare
@@ -344,16 +358,10 @@ augroup vimrc
 
   " Remove auto-comments
   au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-  " Enable omni completion.
-  au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  au FileType purescript setlocal omnifunc=PSCIDEomni
-
 augroup END
 
 augroup purescript
+  autocmd!
   au FileType purescript nmap <leader>t :PSCIDEtype<CR>
   au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
   au FileType purescript nmap <leader>r :PSCIDEload<CR>

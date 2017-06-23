@@ -93,6 +93,8 @@ alias clean_images='sudo docker rmi $(sudo docker images -q)'
 alias top='htop'
 alias startx="startx -- -keeptty"
 
+source ~/.browserstack.env
+
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,

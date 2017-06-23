@@ -1,10 +1,10 @@
 [global]
-    font = terminus 16
+    font = deja vu sans mono 6 
 
     format = "%a: %s %b"
     sort = yes
     indicate_hidden = yes
-    alignment = left
+    alignment = left 
     bounce_freq = 0
     show_age_threshold = 60;
 
@@ -25,7 +25,7 @@
 
     separator_color = auto
 
-    padding = 1
+    padding = 2
     horizontal_padding = 9
 
 

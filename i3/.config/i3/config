@@ -1,17 +1,21 @@
 #vim:filetype=i3
 set $mod Mod4
 
-font pango:terminus 16
+font pango:DejaVu Sans Mono 7
 
 new_window pixel 3
 focus_follows_mouse no
 
-#don't move to neighbouring screen with hjkl
-force_focus_wrapping yes
+# don't move to neighbouring screen with hjkl
+# force_focus_wrapping yes
 
 set $blue #005588
 set $gray1 #484848
 set $gray2 #333333
+
+client.focused            $gray1   $gray1   #FFFFFF   #333333
+client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
+client.unfocused          $gray2   $gray2   #FFFFFF   #000000
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -29,7 +33,7 @@ bindsym $mod+p exec "rofi -show run"
 bindsym $mod+Tab exec "rofi -show window"
 
 # take screenshot
-bindsym $mod+s exec "teiler --area"
+bindsym $mod+s exec "escrotum -sC"
 
 # change focus
 bindsym $mod+h focus left
@@ -55,6 +59,7 @@ bindsym $mod+f fullscreen
 # change container layout (tabbed, toggle split)
 bindsym $mod+n layout tabbed
 bindsym $mod+m layout toggle split
+bindsym $mod+comma layout stacked
 
 # container navigation
 bindsym $mod+d focus parent
@@ -132,21 +137,18 @@ bindsym $mod+Shift+a exec "pavucontrol"
 bindsym $mod+a [urgent=latest] focus
 
 bar {
-  position top
-  status_command i3status
-  colors {
-    separator #928374
-    background #282828
-    statusline #ebdbb2
-    focused_workspace #689d6a #689d6a #282828
-    active_workspace #1d2021 #1d2021 #928374
-    inactive_workspace #32302f #32302f #928374
-    urgent_workspace #cc241d #cc241d #ebdbb2
-  }
+        position top
+        status_command i3status
+        colors {
+                statusline #AAAAAA
+                background #333333
+                focused_workspace $gray2 $gray2 #FFFFFF
+                inactive_workspace $gray1 $gray1 #AAAAAA
+        }
 }
 
 # Power management
-set $Locker i3lock -i ~/dotfiles/backgrounds/congruent_outline.png --tiling && sleep 1
+set $Locker i3lock -u -i ~/dotfiles/lock.jpg && sleep 1
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
@@ -163,7 +165,6 @@ mode "$mode_system" {
 
 bindsym $mod+o mode "$mode_system"
 
-client.focused #689d6a #689d6a #282828 #282828
-client.focused_inactive #1d2021 #1d2021 #928374 #282828
-client.unfocused #32302f #32302f #928374 #282828
-client.urgent #cc241d #cc241d #ebdbb2 #282828
+# Hande floating dialogs
+for_window [class="Lxappearance"] floating enable
+for_window [class="Pavucontrol"] floating enable
