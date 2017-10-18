@@ -1,7 +1,7 @@
 #vim:filetype=i3
 set $mod Mod4
 
-font pango:DejaVu Sans Mono 7
+font pango:DejaVu Sans Mono 18
 
 new_window pixel 3
 focus_follows_mouse no
@@ -27,10 +27,10 @@ bindsym $mod+Return exec termite
 bindsym $mod+c kill
 
 # start rofi launcher
-bindsym $mod+p exec "rofi -show run"
+bindsym $mod+p exec "rofi -show run -config $HOME/.config/rofi/run_conf"
 
 # start rofi window switcher
-bindsym $mod+Tab exec "rofi -show window"
+bindsym $mod+Tab exec "rofi -show window -config $HOME/.config/rofi/win_conf"
 
 # take screenshot
 bindsym $mod+s exec "escrotum -sC"

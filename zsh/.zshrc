@@ -55,7 +55,7 @@ plugins=(git docker fasd)
 
 export GOPATH="$HOME/go"
 
-export PATH="$HOME/purescript:$PATH:$GOPATH/bin"
+export PATH="$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

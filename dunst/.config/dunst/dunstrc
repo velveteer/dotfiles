@@ -1,33 +1,24 @@
 [global]
-    font = deja vu sans mono 6 
-
-    format = "%a: %s %b"
+    font = deja vu sans mono 15
+    format = "<b>%s</b>\n%b"
     sort = yes
     indicate_hidden = yes
     alignment = left 
     bounce_freq = 0
     show_age_threshold = 60;
-
     word_wrap = yes
-
-    geometry = "0x0+0+0"
-    transparency = 0
-
-    idle_threshold = 20
-
+    geometry = "0x0x0x0"
+    shrink = yes
+    transparency = 10
+    idle_threshold = 0
     monitor = 0
     follow = none
-
     sticky_history = yes
     line_height = 0
-
-    separator_height = 2;
-
-    separator_color = auto
-
-    padding = 2
+    separator_height = 2
+    separator_color = "#383C4A"
+    padding = 8 
     horizontal_padding = 9
-
 
 [shortcuts]
     close = mod4+x
@@ -35,21 +26,28 @@
     history = mod4+grave
 
 [urgency_low]
-    background = "#404040"
-    foreground = "#CCCCCC"
+    # IMPORTANT: colors have to be defined in quotation marks.
+    # Otherwise the "#" and following would be interpreted as a comment.
+    background = "#383C4A"
+    foreground = "#D3DAE3"
     timeout = 10
+    # Icon for notifications with low urgency, uncomment to enable
+    #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#859900"
-    foreground = "#DDDDDD"
+    background = "#383C4A"
+    foreground = "#D3DAE3"
     timeout = 10
+    # Icon for notifications with normal urgency, uncomment to enable
+    #icon = /path/to/icon
 
 [urgency_critical]
-    background = "#dc322f"
-    foreground = "#DDDDDD"
+    background = "#383C4A"
+    foreground = "#D3DAE3"
+    frame_color = "#A30B0B"
     timeout = 0
+    # Icon for notifications with critical urgency, uncomment to enable
+    #icon = /path/to/icon
 
-[ignore]
-    appname = "Spotify"
-    summary = "*"
-    format = ""
+
+# vim: ft=cfg

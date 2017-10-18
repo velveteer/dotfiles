@@ -5,12 +5,15 @@
 call plug#begin('~/.vim/plugged')
 
 " tmux
-Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-tbone'
 
 " Themes
 Plug 'flazz/vim-colorschemes'
 Plug 'jacoborus/tender'
+Plug 'arcticicestudio/nord-vim'
+
+" Indexed search
+Plug 'henrik/vim-indexed-search'
 
 " Airline for statusbar
 Plug 'vim-airline/vim-airline'
@@ -43,15 +46,17 @@ Plug 'kien/ctrlp.vim'
 Plug 'jwhitley/vim-matchit'
 
 " Syntax checking
-Plug 'scrooloose/syntastic'
+" Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-Plug 'othree/yajs'
+" Plug 'othree/yajs'
 " Plug 'mxw/vim-jsx'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " CSS
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -65,14 +70,17 @@ Plug 'tpope/vim-classpath', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'guns/vim-sexp', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
-" Plug 'tpope/vim-fireplace'
 
 " RAINBOWS
 Plug 'kien/rainbow_parentheses.vim'
 
+" Haskell
+Plug 'dag/vim2hs', { 'for': 'haskell' }
+
 " Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
+Plug 'vim-syntastic/syntastic', { 'for': 'purescript' }
 
 " Go
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -88,8 +96,8 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-set background=dark
-colorscheme gruvbox
+let g:nord_italic_comments = 1
+colorscheme nord
 
 syntax on                          " Enable syntax highlighting.
 filetype on
@@ -246,15 +254,22 @@ command! Todo call s:todo()
 " PLUGINS {{{
 " ============================================================================
 
-" Syntastic settings
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_javascript_checkers = ['eslint']
+
+" Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" PSC IDE
+let g:psc_ide_server_port = 4242
+
+" ALE Settings
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
 
 " CtrlP options
 let g:ctrlp_map = '<c-p>'
@@ -263,11 +278,6 @@ let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|co
 
 " Get JSX highlighting in non-JSX files
 let g:jsx_ext_required = 0
-
-" vim-go + syntastic fixes
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-" let g:go_list_type = "quickfix"
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
@@ -298,7 +308,7 @@ endfor
 " enable tender airline theme
 let g:tender_airline = 1
 " set airline theme
-let g:airline_theme = 'tender'
+let g:airline_theme = 'nord'
 
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
@@ -320,7 +330,7 @@ endfunc
 " use it on saving 
 augroup whitespace
   autocmd!
-  autocmd BufWrite *.js,*.vue,*.hs,*.purs :call DeleteTrailingWS()
+  autocmd BufWrite *.js,*.vue,*.hs,*.purs,*.ts :call DeleteTrailingWS()
 augroup END
 
 " Return to last edit position when opening files (You want this!)
@@ -362,6 +372,9 @@ augroup END
 
 augroup purescript
   autocmd!
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
   au FileType purescript nmap <leader>t :PSCIDEtype<CR>
   au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
   au FileType purescript nmap <leader>r :PSCIDEload<CR>
@@ -388,4 +401,10 @@ augroup purescript
   " Autostart psc-ide-server
   " au FileType purescript PSCIDEstart
 
+augroup END
+
+augroup vue
+  autocmd! 
+  " au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+  au FileType vue syntax sync fromstart
 augroup END

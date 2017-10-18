@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
 stow --restow \
-	boot \
 	compton \
 	dunst \
 	git \
 	i3 \
+	rofi \
 	termite \
 	tmux \
 	vim \
 	zsh
-
