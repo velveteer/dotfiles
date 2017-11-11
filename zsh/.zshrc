@@ -95,6 +95,10 @@ alias startx="startx -- -keeptty"
 
 source ~/.browserstack.env
 
+export GDK_DPI_SCALE=1
+export GTK_SCALE=2
+export QT_SCREEN_SCALE_FACTORS=1
+
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -119,3 +123,7 @@ activate() {
       nix-shell ~/dotfiles/nix/sandboxes/$1.nix
   fi
 }
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

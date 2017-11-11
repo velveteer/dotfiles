@@ -1,7 +1,7 @@
 #vim:filetype=i3
 set $mod Mod4
 
-font pango:DejaVu Sans Mono 18
+font pango:DejaVu Sans Mono 11
 
 new_window pixel 3
 focus_follows_mouse no
@@ -168,3 +168,14 @@ bindsym $mod+o mode "$mode_system"
 # Hande floating dialogs
 for_window [class="Lxappearance"] floating enable
 for_window [class="Pavucontrol"] floating enable
+
+# Start services
+exec_always --no-startup-id xset r rate 200 60 
+exec_always --no-startup-id feh --no-fehbg --bg-scale ~/dotfiles/backgrounds/wall.jpg
+exec --no-startup-id compton -b
+exec --no-startup-id udiskie
+exec --no-startup-id dunst
+exec --no-startup-id nm-applet
+exec --no-startup-id unclutter -root -visible
+exec --no-startup-id parcellite -n
+exec --no-startup-id redshift-gtk
