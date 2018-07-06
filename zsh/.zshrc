@@ -55,7 +55,7 @@ plugins=(git docker fasd)
 
 export GOPATH="$HOME/go"
 
-export PATH="$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -93,7 +93,7 @@ alias clean_images='sudo docker rmi $(sudo docker images -q)'
 alias top='htop'
 alias startx="startx -- -keeptty"
 
-source ~/.browserstack.env
+# source ~/.browserstack.env
 
 export GDK_DPI_SCALE=1
 export GTK_SCALE=2
@@ -127,3 +127,9 @@ activate() {
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# added by travis gem
+[ -f /home/josh/.travis/travis.sh ] && source /home/josh/.travis/travis.sh
+
+# nix
+source ~/.nix-profile/etc/profile.d/nix.sh

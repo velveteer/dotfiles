@@ -148,7 +148,7 @@ bar {
 }
 
 # Power management
-set $Locker i3lock -u -i ~/dotfiles/lock.jpg && sleep 1
+set $Locker ~/dotfiles/lock.sh
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
@@ -171,8 +171,8 @@ for_window [class="Pavucontrol"] floating enable
 
 # Start services
 exec_always --no-startup-id xset r rate 200 60 
+# exec_always --no-startup-id compton -b
 exec_always --no-startup-id feh --no-fehbg --bg-scale ~/dotfiles/backgrounds/wall.jpg
-exec --no-startup-id compton -b
 exec --no-startup-id udiskie
 exec --no-startup-id dunst
 exec --no-startup-id nm-applet

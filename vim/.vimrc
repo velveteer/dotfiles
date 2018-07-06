@@ -7,6 +7,9 @@ call plug#begin('~/.vim/plugged')
 " tmux
 Plug 'tpope/vim-tbone'
 
+" terminus (terminal support enhancements)
+Plug 'wincent/terminus'
+
 " Themes
 Plug 'flazz/vim-colorschemes'
 Plug 'jacoborus/tender'
@@ -48,15 +51,15 @@ Plug 'jwhitley/vim-matchit'
 " Syntax checking
 " Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
-Plug 'mtscout6/syntastic-local-eslint.vim'
+" Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
 " Plug 'othree/yajs'
 " Plug 'mxw/vim-jsx'
-Plug 'heavenshell/vim-jsdoc'
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'heavenshell/vim-jsdoc'
+Plug 'leafgarland/typescript-vim'
 
 " CSS
 Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -87,6 +90,9 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
 " Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
+" Terraform
+Plug 'hashivim/vim-terraform'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -179,9 +185,9 @@ set sidescroll=1
 let mapleader = "\<Space>"
 
 " sd escaping
-inoremap sd <Esc>
-xnoremap sd <Esc>
-cnoremap sd <C-c>
+" inoremap sd <Esc>
+" xnoremap sd <Esc>
+" cnoremap sd <C-c>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -199,10 +205,10 @@ nnoremap Q <nop>
 map <silent> <leader><cr> :noh<cr>
 
 " Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" map <C-j> <C-W>j
+" map <C-k> <C-W>k
+" map <C-h> <C-W>h
+" map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :bdelete<cr>
@@ -254,19 +260,19 @@ command! Todo call s:todo()
 " PLUGINS {{{
 " ============================================================================
 
-
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0 
 let g:syntastic_check_on_wq = 0
 
 " PSC IDE
 let g:psc_ide_server_port = 4242
 
 " ALE Settings
-let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
@@ -305,7 +311,6 @@ endfor
 " airline
 " ----------------------------------------------------------------------------
 
-" enable tender airline theme
 let g:tender_airline = 1
 " set airline theme
 let g:airline_theme = 'nord'
@@ -375,36 +380,18 @@ augroup purescript
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}
   set statusline+=%*
-  au FileType purescript nmap <leader>t :PSCIDEtype<CR>
-  au FileType purescript nmap <leader>s :PSCIDEapplySuggestion<CR>
-  au FileType purescript nmap <leader>r :PSCIDEload<CR>
-  au FileType purescript nmap <leader>p :PSCIDEpursuit<CR>
-  au FileType purescript nmap <leader>c :PSCIDEcaseSplit<CR>
-  au FileType purescript nmap <leader>a :PSCIDEaddTypeAnnotation<CR>
-  au FileType purescript nmap <leader>i :PSCIDEimportIdentifier<CR>
-  au FileType purescript nmap <leader>qd :PSCIDEremoveImportQualifications<CR>
-  au FileType purescript nmap <leader>qa :PSCIDEaddImportQualifications<CR>
-  nmap <leader>g <C-]>
-
   " au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
   " au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
   " au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
-
   " au FileType purescript set conceallevel=1
   " au FileType purescript set concealcursor=nvc
   " au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
-
   " function! PureScriptFoldLevel(l)
-  "   return getline(a:l) =~ "^\d*import"
+  "   return getline(a:l) =~ "^import"
   " endfunction
-
-  " Autostart psc-ide-server
-  " au FileType purescript PSCIDEstart
-
 augroup END
 
 augroup vue
   autocmd! 
-  " au BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
   au FileType vue syntax sync fromstart
 augroup END
