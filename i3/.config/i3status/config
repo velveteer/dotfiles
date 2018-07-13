@@ -11,12 +11,15 @@ order += "tztime local"
 order += "volume master"
 
 battery 0 {
-    format = "%status %percentage" #%remaining %emptytime"
+    format = "%status %percentage"
     format_down = "No battery"
     status_chr = "CHR"
     status_bat = "BAT"
     status_full = "FULL"
-    path = "/sys/class/power_supply/BAT%d/uevent"
+    threshold_type = "percent"
+    last_full_capacity = true
+    hide_seconds = true
+    integer_battery_capacity = true
     low_threshold = 10
 }
 
