@@ -11,7 +11,6 @@ Plug 'tpope/vim-tbone'
 Plug 'wincent/terminus'
 
 " Themes
-Plug 'flazz/vim-colorschemes'
 Plug 'jacoborus/tender'
 Plug 'arcticicestudio/nord-vim'
 
@@ -33,30 +32,20 @@ Plug 'tpope/vim-sleuth'
 " Surround
 Plug 'tpope/vim-surround'
 
-" Tabularize
-Plug 'godlygeek/tabular'
-
 " EasyMotion -- jump to words
 Plug 'Lokaltog/vim-easymotion'
 
 " Comments
 Plug 'tpope/vim-commentary'
 
-" Fuzzy finder
-Plug 'kien/ctrlp.vim'
-
 " Match everything with %
 Plug 'jwhitley/vim-matchit'
 
 " Syntax checking
-" Plug 'scrooloose/syntastic'
 Plug 'w0rp/ale'
-" Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
-" Plug 'othree/yajs'
-" Plug 'mxw/vim-jsx'
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'heavenshell/vim-jsdoc'
 Plug 'leafgarland/typescript-vim'
@@ -79,6 +68,8 @@ Plug 'kien/rainbow_parentheses.vim'
 
 " Haskell
 Plug 'dag/vim2hs', { 'for': 'haskell' }
+" Plug 'eagletmt/ghcmod-vim'
+" Plug 'Shougo/vimproc'
 
 " Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
@@ -90,6 +81,16 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 
 " Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
+" fzf
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" LanguageClient
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
 
 " Terraform
 Plug 'hashivim/vim-terraform'
@@ -136,10 +137,11 @@ set wrapscan                       " Searches wrap around end-of-file.
 set report      =0                 " Always report changed lines.
 set synmaxcol   =200               " Only highlight the first 200 columns.
 set number                         " Yeah line numbers
-set timeoutlen=1000                " Remove delay when changing modes
-set ttimeoutlen=0
+set timeoutlen  =1000              " Remove delay when changing modes
+set ttimeoutlen =0
 
 set list                           " Show non-printable characters.
+
 if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
 else
@@ -157,6 +159,7 @@ set undofile
 
 " Use ``indent`` based folding
 set foldmethod=indent
+
 " Disable all folds on file open until `zc` or `zM` etc is used
 set nofoldenable
 
@@ -164,9 +167,6 @@ set nofoldenable
 " in the status line. This info is already shown in the
 " Airline status bar.
 set noshowmode
-
-" Make it obvious where 80 characters is
-set colorcolumn=+1
 
 " Start scrolling before cursor gets to the edge
 set scrolloff=5
@@ -178,19 +178,16 @@ set sidescroll=1
 " MAPPINGS {{{
 " ============================================================================
 
-" ----------------------------------------------------------------------------
-" Basic mappings
-" ----------------------------------------------------------------------------
+nnoremap <Leader>ht :GhcModType<cr>
+nnoremap <Leader>htc :GhcModTypeClear<cr>
 
 let mapleader = "\<Space>"
 
-" sd escaping
-" inoremap sd <Esc>
-" xnoremap sd <Esc>
-" cnoremap sd <C-c>
-
 " Fast saving
 nmap <leader>w :w!<cr>
+
+" Binding for fzf files in current dir
+map ; :Files<CR>
 
 " Set paste
 map <leader>pp :setlocal paste!<cr>
@@ -203,12 +200,6 @@ nnoremap Q <nop>
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-" map <C-j> <C-W>j
-" map <C-k> <C-W>k
-" map <C-h> <C-W>h
-" map <C-l> <C-W>l
 
 " Close the current buffer
 map <leader>bd :bdelete<cr>
@@ -260,30 +251,18 @@ command! Todo call s:todo()
 " PLUGINS {{{
 " ============================================================================
 
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0 
-let g:syntastic_check_on_wq = 0
-
-" PSC IDE
-let g:psc_ide_server_port = 4242
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie-wrapper', '--lsp'],
+    \ }
 
 " ALE Settings
+let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
-
-" CtrlP options
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|bower_components|target|dist|compiled|coverage|output)|(\.(swp|ico|git|svn))$'
-
-" Get JSX highlighting in non-JSX files
-let g:jsx_ext_required = 0
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
@@ -312,7 +291,6 @@ endfor
 " ----------------------------------------------------------------------------
 
 let g:tender_airline = 1
-" set airline theme
 let g:airline_theme = 'nord'
 
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
@@ -395,3 +373,5 @@ augroup vue
   autocmd! 
   au FileType vue syntax sync fromstart
 augroup END
+
+autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
