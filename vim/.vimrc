@@ -7,12 +7,14 @@ call plug#begin('~/.vim/plugged')
 " tmux
 Plug 'tpope/vim-tbone'
 
+" Undo tree
+Plug 'simnalamburt/vim-mundo'
+
+" Tab aligning
+Plug 'godlygeek/tabular'
+
 " terminus (terminal support enhancements)
 Plug 'wincent/terminus'
-
-" Themes
-Plug 'jacoborus/tender'
-Plug 'arcticicestudio/nord-vim'
 
 " Indexed search
 Plug 'henrik/vim-indexed-search'
@@ -64,12 +66,11 @@ Plug 'guns/vim-sexp', { 'for': 'clojure' }
 Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
 
 " RAINBOWS
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'luochen1990/rainbow'
 
 " Haskell
-Plug 'dag/vim2hs', { 'for': 'haskell' }
-" Plug 'eagletmt/ghcmod-vim'
-" Plug 'Shougo/vimproc'
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
 
 " Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
@@ -86,14 +87,14 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" LanguageClient
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': './install.sh'
-    \ }
+" Nix
+Plug 'LnL7/vim-nix'
 
 " Terraform
 Plug 'hashivim/vim-terraform'
+
+" Color Schemes
+Plug 'tyrannicaltoucan/vim-deep-space'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -103,12 +104,17 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-let g:nord_italic_comments = 1
-colorscheme nord
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
-syntax on                          " Enable syntax highlighting.
-filetype on
 filetype plugin indent on          " Load plugins according to detected filetype.
+syntax on                          " Enable syntax highlighting.
+
+set background=dark
+set termguicolors
+let g:deepspace_italics=1
+colorscheme deep-space
+let g:airline_theme = 'deep_space'
+highlight Conceal ctermbg=NONE guibg=NONE
 
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
@@ -178,10 +184,10 @@ set sidescroll=1
 " MAPPINGS {{{
 " ============================================================================
 
-nnoremap <Leader>ht :GhcModType<cr>
-nnoremap <Leader>htc :GhcModTypeClear<cr>
-
 let mapleader = "\<Space>"
+
+" Show undo tree
+nmap <silent> <leader>u :MundoToggle<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -220,6 +226,11 @@ vnoremap k gk
 nnoremap <silent> H :bp<CR>
 nnoremap <silent> L :bn<CR>
 
+" Tabularize
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a- :Tabularize /-><CR>
+
 " }}}
 " ============================================================================
 " FUNCTIONS {{{
@@ -251,9 +262,8 @@ command! Todo call s:todo()
 " PLUGINS {{{
 " ============================================================================
 
-let g:LanguageClient_serverCommands = {
-    \ 'haskell': ['hie-wrapper', '--lsp'],
-    \ }
+" Enable rainbow parentheses
+let g:rainbow_active = 1
 
 " ALE Settings
 let g:airline#extensions#ale#enabled = 1
@@ -290,9 +300,6 @@ endfor
 " airline
 " ----------------------------------------------------------------------------
 
-let g:tender_airline = 1
-let g:airline_theme = 'nord'
-
 let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
 let g:airline#extensions#tabline#fnamecollapse = 0
@@ -310,6 +317,7 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
+
 " use it on saving 
 augroup whitespace
   autocmd!
@@ -344,20 +352,12 @@ augroup vimrc
     au VimLeave * call system('tmux set-window automatic-rename on')
   endif
 
-  au VimEnter * RainbowParenthesesToggle
-  au Syntax * RainbowParenthesesLoadRound
-  au Syntax * RainbowParenthesesLoadSquare
-  au Syntax * RainbowParenthesesLoadBraces
-
   " Remove auto-comments
   au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
 
 augroup purescript
-  autocmd!
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
+  " autocmd!
   " au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
   " au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
   " au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
@@ -375,3 +375,12 @@ augroup vue
 augroup END
 
 autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
+
+" }}}
+" ============================================================================
+" LANGUAGE SPECIFICS {{{
+" ============================================================================
+
+let g:haskell_tabular = 1
+let g:haskell_conceal_wide = 1
+let g:haskell_conceal_bad = 1
