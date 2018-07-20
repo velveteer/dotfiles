@@ -21,7 +21,7 @@ alias top='htop'
 alias startx="startx -- -keeptty"
 alias open="xdg-open"
 alias vim="nvim"
-alias tmux="TERM=xterm-256color tmux"
+alias tmux="TERM=screen-256color tmux"
 
 # User configuration
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
