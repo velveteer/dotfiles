@@ -179,6 +179,9 @@ set scrolloff=5
 set sidescrolloff=15
 set sidescroll=1
 
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
 " }}}
 " ============================================================================
 " MAPPINGS {{{
@@ -354,6 +357,7 @@ augroup vimrc
 
   " Remove auto-comments
   au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
 augroup END
 
 augroup purescript

@@ -21,6 +21,7 @@ alias top='htop'
 alias startx="startx -- -keeptty"
 alias open="xdg-open"
 alias vim="nvim"
+alias tmux="TERM=xterm-256color tmux"
 
 # User configuration
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
@@ -28,7 +29,7 @@ export GOPATH="$HOME/go"
 source $ZSH/oh-my-zsh.sh
 export SSH_ASKPASS=""
 export LANG=en_US.UTF-8
-export TERM=xterm
+export TERM=xterm-256color
 export GDK_DPI_SCALE=1
 export GTK_SCALE=2
 export QT_SCREEN_SCALE_FACTORS=1

@@ -5,6 +5,7 @@ stow --restow \
 	dunst \
 	git \
 	i3 \
+	kitty \
 	rofi \
 	termite \
 	tmux \

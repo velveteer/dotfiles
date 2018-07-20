@@ -1,5 +1,5 @@
 [global]
-    font = deja vu sans mono 11
+    font = UW Ttyp0 10
     format = "<b>%s</b>\n%b"
     sort = yes
     indicate_hidden = yes

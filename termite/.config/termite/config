@@ -1,4 +1,5 @@
 [options]
+font = uw ttyp0 11
 resize_grip = false
 scroll_on_output = false
 scroll_on_keystroke = true
@@ -9,11 +10,8 @@ allow_bold = false
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = hack 11
 scrollback_lines = 10000
 search_wrap = true
-#icon_name = terminal
-#geometry = 640x480
 
 # "system", "on" or "off"
 cursor_blink = system
@@ -24,37 +22,29 @@ cursor_shape = block
 # $BROWSER is used by default
 browser = chromium
 
-# word characters used for word selection
-# (default if unset: all graphic non-punctuation/space characters)
-#word_chars = -A-Za-z0-9,./?%&#:_=+@~
-
-# set size hints for the window
-#size_hints = false
-
 # emit escape sequences for other keys modified by Control
 #modify_other_keys = false
 
 [colors]
-foreground = #D8DEE9
-background = #2E3440
-foreground_bold = #D8DEE9
+foreground = #9aa4bd
+background = #1b202a
 cursor = #D8DEE9
 cursor_foreground = #2E3440
 highlight = #4C566A
 
-color0  = #3B4252
-color1  = #BF616A
-color2  = #A3BE8C
-color3  = #EBCB8B
-color4  = #81A1C1
-color5  = #B48EAD
-color6  = #88C0D0
-color7  = #E5E9F0
-color8  = #4C566A
-color9  = #BF616A
-color10 = #A3BE8C
-color11 = #EBCB8B
-color12 = #81A1C1
-color13 = #B48EAD
-color14 = #8FBCBB
-color15 = #ECEFF4
+color0  = #1b202a
+color1  = #b15e7c
+color2  = #709d6c
+color3  = #b5a262
+color4  = #608cc3
+color5  = #8f72bf
+color6  = #56ab7
+color7  = #323c4d
+color8  = #232946
+color9  = #b3785d
+color10 = #709d6c
+color11 = #d5b875
+color12 = #608cc3
+color13 = #c47ebd
+color14 = #51617d
+color15 = #9aa7bd
