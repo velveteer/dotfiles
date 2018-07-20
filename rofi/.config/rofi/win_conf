@@ -1,3 +1,4 @@
+rofi.font:          gohufont 12
 rofi.color-enabled: true
 rofi.bw = 0
 rofi.color-window: #383C4A, #383C4A, #383C4A

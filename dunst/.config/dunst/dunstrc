@@ -1,5 +1,5 @@
 [global]
-    font = UW Ttyp0 10
+    font = gohufont 9
     format = "<b>%s</b>\n%b"
     sort = yes
     indicate_hidden = yes

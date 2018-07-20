@@ -6,6 +6,7 @@ stow --restow \
 	git \
 	i3 \
 	kitty \
+	redshift \
 	rofi \
 	termite \
 	tmux \

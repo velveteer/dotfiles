@@ -1,5 +1,5 @@
 [options]
-font = uw ttyp0 11
+font = gohu gohufont 14px
 resize_grip = false
 scroll_on_output = false
 scroll_on_keystroke = true

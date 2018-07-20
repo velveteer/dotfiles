@@ -70,7 +70,7 @@ Plug 'luochen1990/rainbow'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
+" Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
 
 " Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
