@@ -148,7 +148,7 @@ bar {
 }
 
 # Power management
-set $Locker ~/dotfiles/lock.sh
+set $Locker ~/dotfiles/scripts/lock.sh
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id $Locker, mode "default"
