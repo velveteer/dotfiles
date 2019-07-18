@@ -33,9 +33,10 @@ Plug 'Konfekt/FastFold'
 
 " git in Vim
 Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " Heuristically set buffer options
-Plug 'tpope/vim-sleuth'
+" Plug 'tpope/vim-sleuth'
 
 " Surround
 Plug 'tpope/vim-surround'
@@ -63,6 +64,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'JulesWang/css.vim'
 
 " HTML
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'plasticboy/vim-markdown'
 
 " Clojure
@@ -76,7 +78,6 @@ Plug 'luochen1990/rainbow'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-" Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
 
 " Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
@@ -93,6 +94,12 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" LSP
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': './install.sh'
+"     \ }
+
 " Nix
 Plug 'LnL7/vim-nix'
 
@@ -101,6 +108,7 @@ Plug 'hashivim/vim-terraform'
 
 " Color Schemes
 Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'rakr/vim-one'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -110,17 +118,24 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+set background=dark
+colorscheme one
+let g:airline_theme = 'one'
+highlight Conceal ctermbg=NONE guibg=NONE
 
 filetype plugin indent on          " Load plugins according to detected filetype.
 syntax on                          " Enable syntax highlighting.
-
-set background=dark
-set termguicolors
-let g:deepspace_italics=1
-colorscheme deep-space
-let g:airline_theme = 'deep_space'
-highlight Conceal ctermbg=NONE guibg=NONE
 
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
@@ -188,6 +203,9 @@ set sidescroll=1
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Set local settings per project root in .vimlocal
+silent! so .vimlocal
+
 " }}}
 " ============================================================================
 " MAPPINGS {{{
@@ -239,6 +257,8 @@ nnoremap <silent> L :bn<CR>
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
+vmap a` :Tabularize /<-<CR>
+vmap a. :Tabularize /.=<CR>
 
 " }}}
 " ============================================================================
@@ -275,13 +295,23 @@ command! Todo call s:todo()
 let g:rainbow_active = 1
 
 " ALE Settings
-let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_save = 1
+let g:ale_linters = {'haskell': ['hlint']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
+
+" Set LanguageClient command for Haskell
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+" map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+" map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+" map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+" map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+" map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+" map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " ----------------------------------------------------------------------------
 " <leader>t | vim-tbone
@@ -366,24 +396,6 @@ augroup vimrc
 
 augroup END
 
-augroup purescript
-  " autocmd!
-  " au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
-  " au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
-  " au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
-  " au FileType purescript set conceallevel=1
-  " au FileType purescript set concealcursor=nvc
-  " au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
-  " function! PureScriptFoldLevel(l)
-  "   return getline(a:l) =~ "^import"
-  " endfunction
-augroup END
-
-augroup vue
-  autocmd! 
-  au FileType vue syntax sync fromstart
-augroup END
-
 autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
 
 " }}}
@@ -392,5 +404,3 @@ autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursor
 " ============================================================================
 
 let g:haskell_tabular = 1
-let g:haskell_conceal_wide = 1
-let g:haskell_conceal_bad = 1
