@@ -120,7 +120,6 @@ set termguicolors
 let g:deepspace_italics=1
 colorscheme deep-space
 let g:airline_theme = 'deep_space'
-highlight Conceal ctermbg=NONE guibg=NONE
 
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
@@ -239,6 +238,22 @@ nnoremap <silent> L :bn<CR>
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
+
+" TEXT MANIPULATION 
+nmap <leader>x( <Plug>Delete-surrounding-(
+nmap     <Plug>Delete-surrounding-( mzdi(va(p`zh
+nmap <leader>x[ <Plug>Delete-surrounding-[
+nmap     <Plug>Delete-surrounding-[ mzdi[va[p`zh
+nmap <leader>x{ <Plug>Delete-surrounding-{
+nmap     <Plug>Delete-surrounding-{ mzdi{va{p`zh
+
+nmap <leader>( <Plug>Surround-word-with-(
+nnoremap <Plug>Surround-word-with-( mzdiwi(<esc>pa)<esc>`zl
+nmap <leader>[ <Plug>Surround-word-with-[
+nnoremap <Plug>Surround-word-with-[ mzdiwi[<esc>pa]<esc>`zl
+nmap <leader>{ <Plug>Surround-word-with-{
+nnoremap <Plug>Surround-word-with-{ mzdiwi{<esc>pa}<esc>`zl
+
 
 " }}}
 " ============================================================================
@@ -392,5 +407,5 @@ autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursor
 " ============================================================================
 
 let g:haskell_tabular = 1
-let g:haskell_conceal_wide = 1
-let g:haskell_conceal_bad = 1
+let g:ale_linters = {'haskell': ['hlint']}
+let g:ale_haskell_ghc_options = '-fno-code -v0 -isrc'

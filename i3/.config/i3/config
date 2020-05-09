@@ -1,7 +1,7 @@
 #vim:filetype=i3
 set $mod Mod4
 
-font pango: gohufont 9
+font pango: Source Code Pro Regular 9
 
 new_window pixel 3
 focus_follows_mouse no

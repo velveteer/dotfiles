@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+SAVEHIST=10
+HISTFILE=~/.zsh_history
+
 setopt prompt_subst
 
 # Load required modules
@@ -96,6 +99,13 @@ if [ $commands[fasd] ]; then # check if fasd is installed
   alias o='a -e open_command'
 fi
 
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+[[ -n "$key[Up]"   ]] && bindkey -- "$key[Up]"   up-line-or-beginning-search
+[[ -n "$key[Down]" ]] && bindkey -- "$key[Down]" down-line-or-beginning-search
+
 #Play safe!
 alias rm='rm -i'
 alias mv='mv -i'
@@ -115,6 +125,7 @@ alias vim="nvim"
 alias tmux="TERM=screen-256color tmux"
 alias gd="git diff"
 alias gst="git status"
+alias gco="git checkout"
 alias glo="git log --oneline"
 alias ..="cd .."
 

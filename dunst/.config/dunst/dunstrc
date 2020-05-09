@@ -1,5 +1,5 @@
 [global]
-    font = gohufont 9
+    font = source code pro 9
     format = "<b>%s</b>\n%b"
     sort = yes
     indicate_hidden = yes
