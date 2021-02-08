@@ -10,105 +10,35 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" tmux
-Plug 'tpope/vim-tbone'
-
-" Undo tree
-Plug 'simnalamburt/vim-mundo'
-
-" Tab aligning
+Plug 'nikvdp/neomux'
 Plug 'godlygeek/tabular'
-
-" terminus (terminal support enhancements)
 Plug 'wincent/terminus'
-
-" Indexed search
 Plug 'henrik/vim-indexed-search'
-
-" Airline for statusbar
 Plug 'vim-airline/vim-airline'
-
-" Fix folding speed
 Plug 'Konfekt/FastFold'
-
-" git in Vim
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
-
-" Heuristically set buffer options
-" Plug 'tpope/vim-sleuth'
-
-" Surround
 Plug 'tpope/vim-surround'
-
-" EasyMotion -- jump to words
-Plug 'Lokaltog/vim-easymotion'
-
-" Comments
+Plug 'phaazon/hop.nvim'
 Plug 'tpope/vim-commentary'
-
-" Match everything with %
 Plug 'jwhitley/vim-matchit'
-
-" Syntax checking
 Plug 'w0rp/ale'
-
-" Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'heavenshell/vim-jsdoc'
-Plug 'leafgarland/typescript-vim'
-
-" CSS
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'JulesWang/css.vim'
-
-" HTML
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'plasticboy/vim-markdown'
-
-" Clojure
-Plug 'tpope/vim-classpath', { 'for': 'clojure' }
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-Plug 'guns/vim-sexp', { 'for': 'clojure' }
-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
-
-" RAINBOWS
 Plug 'luochen1990/rainbow'
-
-" Haskell
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'JulesWang/css.vim', { 'for': 'css' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-
-" Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
-Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
-Plug 'vim-syntastic/syntastic', { 'for': 'purescript' }
-
-" Go
 Plug 'fatih/vim-go', { 'for': 'go' }
-
-" Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
-" fzf
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" LSP
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': './install.sh'
-"     \ }
-
-" Nix
-Plug 'LnL7/vim-nix'
-
-" Terraform
-Plug 'hashivim/vim-terraform'
-
-" Color Schemes
-Plug 'tyrannicaltoucan/vim-deep-space'
-Plug 'rakr/vim-one'
+Plug 'mileszs/ack.vim'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'phaazon/gruvbox'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -118,47 +48,32 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
 if (has("termguicolors"))
   set termguicolors
 endif
 
 set background=dark
-colorscheme one
-let g:airline_theme = 'one'
+colorscheme gruvbox
 highlight Conceal ctermbg=NONE guibg=NONE
 
 filetype plugin indent on          " Load plugins according to detected filetype.
 syntax on                          " Enable syntax highlighting.
-
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
 set softtabstop =2                 " Tab key indents by 2 spaces.
 set shiftwidth  =2                 " >> indents by 2 spaces.
 set shiftround                     " >> indents to next multiple of 'shiftwidth'.
-
 set backspace   =indent,eol,start  " Make backspace work as you would expect.
 set hidden                         " Switch between buffers without having to save first.
 set laststatus  =2                 " Always show statusline.
 set display     =lastline          " Show as much as possible of the last line.
-
 set showcmd                        " Show already typed keys when more are expected.
-
 set incsearch                      " Highlight while searching with / or ?.
 set hlsearch                       " Keep matches highlighted.
-
 set ttyfast                        " Faster redrawing.
 set lazyredraw                     " Only redraw when necessary.
-
 set splitbelow                     " Open new windows below the current window.
 set splitright                     " Open new windows right of the current window.
-
 set nocursorline                   " (OFF) Find the current line quickly.
 set wrapscan                       " Searches wrap around end-of-file.
 set report      =0                 " Always report changed lines.
@@ -166,8 +81,8 @@ set synmaxcol   =200               " Only highlight the first 200 columns.
 set number                         " Yeah line numbers
 set timeoutlen  =1000              " Remove delay when changing modes
 set ttimeoutlen =0
-
 set list                           " Show non-printable characters.
+set updatetime  =100
 
 if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
@@ -206,6 +121,13 @@ set ffs=unix,dos,mac
 " Set local settings per project root in .vimlocal
 silent! so .vimlocal
 
+" Ignore certain files and folders when globbing
+set wildignore+=*.o,*.obj,*.bin,*.dll,*.exe
+set wildignore+=*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**
+set wildignore+=*.pyc
+set wildignore+=*.DS_Store
+set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz,*.pdf
+
 " }}}
 " ============================================================================
 " MAPPINGS {{{
@@ -213,8 +135,8 @@ silent! so .vimlocal
 
 let mapleader = "\<Space>"
 
-" Show undo tree
-nmap <silent> <leader>u :MundoToggle<CR>
+" Hop hop
+nmap <silent> <leader>h :HopWord<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -260,6 +182,18 @@ vmap a- :Tabularize /-><CR>
 vmap a` :Tabularize /<-<CR>
 vmap a. :Tabularize /.=<CR>
 
+" When completion menu is shown, use <cr> to select an item
+" and do not add an annoying newline. Otherwise, <enter> is what it is.
+" For more info , see https://goo.gl/KTHtrr and https://goo.gl/MH7w3b
+inoremap <expr> <cr> ((pumvisible())?("\<C-Y>"):("\<cr>"))
+" Use <esc> to close auto-completion menu
+inoremap <expr> <esc> ((pumvisible())?("\<C-e>"):("\<esc>"))
+
+" Edit and reload init.vim quickly
+nnoremap <silent> <leader>ev :edit $MYVIMRC<cr>
+nnoremap <silent> <leader>sv :silent update $MYVIMRC <bar> source $MYVIMRC <bar>
+    \ echomsg "Nvim config successfully reloaded!"<cr>
+
 " }}}
 " ============================================================================
 " FUNCTIONS {{{
@@ -294,46 +228,14 @@ command! Todo call s:todo()
 " Enable rainbow parentheses
 let g:rainbow_active = 1
 
+" Use silver searcher instead of ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 " ALE Settings
 let g:ale_lint_on_save = 1
 let g:ale_linters = {'haskell': ['hlint']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
-
-" Set LanguageClient command for Haskell
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
-" map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
-" map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-" map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-" map <Leader>lb :call LanguageClient#textDocument_references()<CR>
-" map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
-" map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-
-" ----------------------------------------------------------------------------
-" <leader>t | vim-tbone
-" ----------------------------------------------------------------------------
-function! s:tmux_send(dest) range
-  call inputsave()
-  let dest = empty(a:dest) ? input('To which pane? ') : a:dest
-  call inputrestore()
-  silent call tbone#write_command(0, a:firstline, a:lastline, 1, dest)
-endfunction
-for m in ['n', 'x']
-  let gv = m == 'x' ? 'gv' : ''
-  execute m."noremap <silent> <leader>tt :call <SID>tmux_send('')<cr>".gv
-  execute m."noremap <silent> <leader>th :call <SID>tmux_send('.left')<cr>".gv
-  execute m."noremap <silent> <leader>tj :call <SID>tmux_send('.bottom')<cr>".gv
-  execute m."noremap <silent> <leader>tk :call <SID>tmux_send('.top')<cr>".gv
-  execute m."noremap <silent> <leader>tl :call <SID>tmux_send('.right')<cr>".gv
-  execute m."noremap <silent> <leader>ty :call <SID>tmux_send('.top-left')<cr>".gv
-  execute m."noremap <silent> <leader>to :call <SID>tmux_send('.top-right')<cr>".gv
-  execute m."noremap <silent> <leader>tn :call <SID>tmux_send('.bottom-left')<cr>".gv
-  execute m."noremap <silent> <leader>t. :call <SID>tmux_send('.bottom-right')<cr>".gv
-endfor
 
 " ----------------------------------------------------------------------------
 " airline
@@ -344,6 +246,10 @@ let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " Show tab number
 let g:airline#extensions#tabline#buffer_nr_show = 0
+let g:airline#extensions#ale#enabled = 1 " ALE
+let g:airline_highlighting_cache = 1
+let g:airline_theme = 'gruvbox'
+let g:airline_powerline_fonts = 0
 
 " }}}
 " ============================================================================
@@ -396,7 +302,11 @@ augroup vimrc
 
 augroup END
 
-autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
+" More accurate syntax highlighting? (see `:h syn-sync`)
+augroup accurate_syn_highlight
+    autocmd!
+    autocmd BufEnter * :syntax sync fromstart
+augroup END
 
 " }}}
 " ============================================================================
@@ -404,3 +314,14 @@ autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursor
 " ============================================================================
 
 let g:haskell_tabular = 1
+let g:haskell_indent_case = 2
+set tags=tags;/,codex.tags;/
+
+augroup haskell
+  autocmd!
+  au FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
+augroup END
+
+" Haskell import sorting
+noremap <silent> <Leader>si V:s/\v[^(]*\(\zs.*\ze\)/\=join(sort(split(submatch(0), '\v(\([^)]*)@<!\s*,\s*')), ', ')<CR>:noh<CR>
+

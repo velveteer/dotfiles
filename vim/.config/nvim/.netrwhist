@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/Users/m117129/HEB/omipo-cluster-infra/terraform/stage'
+let g:netrw_dirhist_9='/Users/m117129/.tmux'
+let g:netrw_dirhist_8='/Users/m117129/HEB/wims-core/smoke-tests/src/tests/api/v3/supplier-order'
+let g:netrw_dirhist_7='/Users/m117129/HEB/wims-core/smoke-tests/src/tests/api/v3/supplier-order/wims-id'
+let g:netrw_dirhist_6='/Users/m117129/HEB/wims-core/smoke-tests/src/tests/api/v3/supplier-order'
+let g:netrw_dirhist_5='/Users/m117129/HEB/wims-core/smoke-tests/src/tests/api/v3/supplier-order/wims-id'
+let g:netrw_dirhist_4='/Users/m117129/HEB/wims-core/smoke-tests/src/tests/api/v3/supplier-order'
+let g:netrw_dirhist_3='/Users/m117129/HEB/wims-core/.git'
+let g:netrw_dirhist_2='/Users/m117129/HEB/wims-core/src/Wims/JobQueue/ProcessorJob'
+let g:netrw_dirhist_1='/Users/m117129/HEB/wims-core/src'

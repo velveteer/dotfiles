@@ -4,6 +4,7 @@ HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
 
+bindkey -e
 setopt prompt_subst
 
 # Load required modules
@@ -115,17 +116,20 @@ alias clean_images='sudo docker rmi $(sudo docker images -q)'
 # alias top='htop'
 alias startx="startx -- -keeptty"
 alias vim="nvim"
-alias tmux="TERM=screen-256color tmux"
 alias gd="git diff"
+alias gdc="git diff --cached"
 alias gst="git status"
 alias glo="git log --oneline"
 alias gco="git checkout"
+alias gcan="git commit --amend --no-edit"
 alias ..="cd .."
+alias dc="docker-compose"
 
 # User configuration
-export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 export GOPATH="$HOME/go"
 export LANG=en_US.UTF-8
+export EDITOR=nvim
 export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"
 
