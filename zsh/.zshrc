@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-SAVEHIST=10
+SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 setopt prompt_subst
@@ -8,6 +8,12 @@ setopt prompt_subst
 # Load required modules
 #
 autoload -Uz vcs_info
+
+# Load Git completion
+zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+fpath=(~/.zsh $fpath)
+
+autoload -Uz compinit && compinit
 
 # Set vcs_info parameters
 #
@@ -127,10 +133,12 @@ alias gd="git diff"
 alias gst="git status"
 alias gco="git checkout"
 alias glo="git log --oneline"
+alias gcan="git commit --amend --no-edit"
 alias ..="cd .."
+alias dc="docker-compose"
 
 # User configuration
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 export GOPATH="$HOME/go"
 export LANG=en_US.UTF-8
 export TERM=xterm-256color
@@ -138,3 +146,6 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/completion.zsh.inc ] && source ~/completion.zsh.inc
+source /etc/profile.d/nix.sh
+
