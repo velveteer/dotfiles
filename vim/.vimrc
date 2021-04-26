@@ -10,97 +10,34 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" tmux
-Plug 'tpope/vim-tbone'
-
-" Undo tree
-Plug 'simnalamburt/vim-mundo'
-
-" Tab aligning
 Plug 'godlygeek/tabular'
-
-" terminus (terminal support enhancements)
 Plug 'wincent/terminus'
-
-" Indexed search
 Plug 'henrik/vim-indexed-search'
-
-" Airline for statusbar
 Plug 'vim-airline/vim-airline'
-
-" Fix folding speed
 Plug 'Konfekt/FastFold'
-
-" git in Vim
-Plug 'airblade/vim-gitgutter'
-
-" Heuristically set buffer options
-Plug 'tpope/vim-sleuth'
-
-" Surround
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-
-" EasyMotion -- jump to words
-Plug 'Lokaltog/vim-easymotion'
-
-" Comments
 Plug 'tpope/vim-commentary'
-
-" Match everything with %
 Plug 'jwhitley/vim-matchit'
-
-" Syntax checking
 Plug 'w0rp/ale'
-
-" Javascript
-Plug 'pangloss/vim-javascript'
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'heavenshell/vim-jsdoc'
-Plug 'leafgarland/typescript-vim'
-
-" CSS
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'JulesWang/css.vim'
-
-" HTML
-Plug 'plasticboy/vim-markdown'
-
-" Clojure
-Plug 'tpope/vim-classpath', { 'for': 'clojure' }
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-Plug 'guns/vim-sexp', { 'for': 'clojure' }
-Plug 'tpope/vim-sexp-mappings-for-regular-people', { 'for': 'clojure' }
-
-" RAINBOWS
 Plug 'luochen1990/rainbow'
-
-" Haskell
+Plug 'easymotion/vim-easymotion'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'JulesWang/css.vim', { 'for': 'css' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-" Plug 'enomsg/vim-haskellConcealPlus', { 'for': 'haskell' }
-
-" Purescript
 Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
-Plug 'FrigoEU/psc-ide-vim', { 'for': 'purescript' }
-Plug 'vim-syntastic/syntastic', { 'for': 'purescript' }
-
-" Go
 Plug 'fatih/vim-go', { 'for': 'go' }
-
-" Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
-" fzf
+Plug 'LnL7/vim-nix', { 'for': 'nix' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" Nix
-Plug 'LnL7/vim-nix'
-
-" Terraform
-Plug 'hashivim/vim-terraform'
-
-" Color Schemes
-Plug 'tyrannicaltoucan/vim-deep-space'
+Plug 'mileszs/ack.vim'
+Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'phaazon/gruvbox'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -110,39 +47,32 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+if (has("termguicolors"))
+  set termguicolors
+endif
+
+set background=dark
+colorscheme gruvbox
+highlight Conceal ctermbg=NONE guibg=NONE
 
 filetype plugin indent on          " Load plugins according to detected filetype.
 syntax on                          " Enable syntax highlighting.
-
-set background=dark
-set termguicolors
-let g:deepspace_italics=1
-colorscheme deep-space
-let g:airline_theme = 'deep_space'
-
 set autoindent                     " Indent according to previous line.
 set expandtab                      " Use spaces instead of tabs.
 set softtabstop =2                 " Tab key indents by 2 spaces.
 set shiftwidth  =2                 " >> indents by 2 spaces.
 set shiftround                     " >> indents to next multiple of 'shiftwidth'.
-
 set backspace   =indent,eol,start  " Make backspace work as you would expect.
 set hidden                         " Switch between buffers without having to save first.
 set laststatus  =2                 " Always show statusline.
 set display     =lastline          " Show as much as possible of the last line.
-
 set showcmd                        " Show already typed keys when more are expected.
-
 set incsearch                      " Highlight while searching with / or ?.
 set hlsearch                       " Keep matches highlighted.
-
 set ttyfast                        " Faster redrawing.
 set lazyredraw                     " Only redraw when necessary.
-
 set splitbelow                     " Open new windows below the current window.
 set splitright                     " Open new windows right of the current window.
-
 set nocursorline                   " (OFF) Find the current line quickly.
 set wrapscan                       " Searches wrap around end-of-file.
 set report      =0                 " Always report changed lines.
@@ -150,8 +80,8 @@ set synmaxcol   =200               " Only highlight the first 200 columns.
 set number                         " Yeah line numbers
 set timeoutlen  =1000              " Remove delay when changing modes
 set ttimeoutlen =0
-
 set list                           " Show non-printable characters.
+set updatetime  =100
 
 if has('multi_byte') && &encoding ==# 'utf-8'
   let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
@@ -187,15 +117,22 @@ set sidescroll=1
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
 
+" Set local settings per project root in .vimlocal
+silent! so .vimlocal
+
+" Ignore certain files and folders when globbing
+set wildignore+=*.o,*.obj,*.bin,*.dll,*.exe
+set wildignore+=*/.git/*,*/.svn/*,*/__pycache__/*,*/build/**
+set wildignore+=*.pyc
+set wildignore+=*.DS_Store
+set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz,*.pdf
+
 " }}}
 " ============================================================================
 " MAPPINGS {{{
 " ============================================================================
 
 let mapleader = "\<Space>"
-
-" Show undo tree
-nmap <silent> <leader>u :MundoToggle<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -238,6 +175,20 @@ nnoremap <silent> L :bn<CR>
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
+vmap a` :Tabularize /<-<CR>
+vmap a. :Tabularize /.=<CR>
+
+" When completion menu is shown, use <cr> to select an item
+" and do not add an annoying newline. Otherwise, <enter> is what it is.
+" For more info , see https://goo.gl/KTHtrr and https://goo.gl/MH7w3b
+inoremap <expr> <cr> ((pumvisible())?("\<C-Y>"):("\<cr>"))
+" Use <esc> to close auto-completion menu
+inoremap <expr> <esc> ((pumvisible())?("\<C-e>"):("\<esc>"))
+
+" Edit and reload init.vim quickly
+nnoremap <silent> <leader>ev :edit $MYVIMRC<cr>
+nnoremap <silent> <leader>sv :silent update $MYVIMRC <bar> source $MYVIMRC <bar>
+    \ echomsg "Nvim config successfully reloaded!"<cr>
 
 " TEXT MANIPULATION 
 nmap <leader>x( <Plug>Delete-surrounding-(
@@ -289,36 +240,14 @@ command! Todo call s:todo()
 " Enable rainbow parentheses
 let g:rainbow_active = 1
 
+" Use silver searcher instead of ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
 " ALE Settings
-let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_save = 1
+let g:ale_linters = {'haskell': ['hlint']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-" Set this. Airline will handle the rest.
-let g:airline#extensions#ale#enabled = 1
-
-" ----------------------------------------------------------------------------
-" <leader>t | vim-tbone
-" ----------------------------------------------------------------------------
-function! s:tmux_send(dest) range
-  call inputsave()
-  let dest = empty(a:dest) ? input('To which pane? ') : a:dest
-  call inputrestore()
-  silent call tbone#write_command(0, a:firstline, a:lastline, 1, dest)
-endfunction
-for m in ['n', 'x']
-  let gv = m == 'x' ? 'gv' : ''
-  execute m."noremap <silent> <leader>tt :call <SID>tmux_send('')<cr>".gv
-  execute m."noremap <silent> <leader>th :call <SID>tmux_send('.left')<cr>".gv
-  execute m."noremap <silent> <leader>tj :call <SID>tmux_send('.bottom')<cr>".gv
-  execute m."noremap <silent> <leader>tk :call <SID>tmux_send('.top')<cr>".gv
-  execute m."noremap <silent> <leader>tl :call <SID>tmux_send('.right')<cr>".gv
-  execute m."noremap <silent> <leader>ty :call <SID>tmux_send('.top-left')<cr>".gv
-  execute m."noremap <silent> <leader>to :call <SID>tmux_send('.top-right')<cr>".gv
-  execute m."noremap <silent> <leader>tn :call <SID>tmux_send('.bottom-left')<cr>".gv
-  execute m."noremap <silent> <leader>t. :call <SID>tmux_send('.bottom-right')<cr>".gv
-endfor
 
 " ----------------------------------------------------------------------------
 " airline
@@ -329,6 +258,10 @@ let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " Show tab number
 let g:airline#extensions#tabline#buffer_nr_show = 0
+let g:airline#extensions#ale#enabled = 1 " ALE
+let g:airline_highlighting_cache = 1
+let g:airline_theme = 'gruvbox'
+let g:airline_powerline_fonts = 0
 
 " }}}
 " ============================================================================
@@ -381,25 +314,11 @@ augroup vimrc
 
 augroup END
 
-augroup purescript
-  " autocmd!
-  " au FileType purescript nmap <leader>fm :set foldmethod=manual<CR>zE<CR>
-  " au FileType purescript nmap <leader>fe :set foldmethod=expr<CR>
-  " au FileType purescript set foldexpr=PureScriptFoldLevel(v:lnum)
-  " au FileType purescript set conceallevel=1
-  " au FileType purescript set concealcursor=nvc
-  " au FileType purescript syn keyword purescriptForall forall conceal cchar=∀
-  " function! PureScriptFoldLevel(l)
-  "   return getline(a:l) =~ "^import"
-  " endfunction
+" More accurate syntax highlighting? (see `:h syn-sync`)
+augroup accurate_syn_highlight
+    autocmd!
+    autocmd BufEnter * :syntax sync fromstart
 augroup END
-
-augroup vue
-  autocmd! 
-  au FileType vue syntax sync fromstart
-augroup END
-
-autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
 
 " }}}
 " ============================================================================
@@ -409,3 +328,16 @@ autocmd FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursor
 let g:haskell_tabular = 1
 let g:ale_linters = {'haskell': ['hlint']}
 let g:ale_haskell_ghc_options = '-fno-code -v0 -isrc'
+let g:haskell_conceal_wide = 1
+let g:haskell_conceal_bad = 1
+let g:haskell_indent_case = 2
+set tags=tags;/,codex.tags;/
+
+augroup haskell
+  autocmd!
+  au FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
+augroup END
+
+" Haskell import sorting
+noremap <silent> <Leader>si V:s/\v[^(]*\(\zs.*\ze\)/\=join(sort(split(submatch(0), '\v(\([^)]*)@<!\s*,\s*')), ', ')<CR>:noh<CR>
+
