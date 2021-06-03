@@ -1,0 +1,217 @@
+#vim:filetype=i3
+set $mod Mod4
+set $screen_laptop 'eDP-1'
+xwayland disable
+
+font pango: Source Code Pro Regular 9
+
+# Disable cursor jumping
+mouse_warping none
+focus_follows_mouse no
+
+# Gaps
+gaps inner 5
+smart_gaps on
+
+# Borders
+default_border pixel 2
+default_floating_border none
+hide_edge_borders --i3 none
+
+output $screen_laptop {
+  scale 2
+  subpixel rgb
+}
+
+output * bg ~/dotfiles/backgrounds/wall.jpg fill
+
+input type:keyboard { 
+  repeat_delay 200
+  repeat_rate 60
+}
+
+input type:touchpad {
+  accel_profile adaptive 
+  natural_scroll enabled 
+}
+
+seat * hide_cursor 10000
+
+set $blue #005588
+set $gray1 #484848
+set $gray2 #333333
+
+client.focused            $gray1   $gray1   #FFFFFF   #333333
+client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
+client.unfocused          $gray2   $gray2   #FFFFFF   #000000
+
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec kitty
+
+# kill focused window
+bindsym $mod+c kill
+
+# start wofi launcher
+bindsym $mod+p exec "wofi --show run"
+
+# take screenshot
+# bindsym $mod+s exec "escrotum -sC"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# split in horizontal orientation
+bindsym $mod+v split h
+
+# split in vertical orientation
+bindsym $mod+g split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (tabbed, toggle split)
+bindsym $mod+n layout tabbed
+bindsym $mod+m layout toggle split
+bindsym $mod+comma layout stacked
+
+# container navigation
+bindsym $mod+d focus parent
+bindsym $mod+b focus child
+
+# move container between displays
+bindsym $mod+semicolon move workspace to output right
+
+# toggle tiling / floating
+bindsym $mod+Shift+f floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# switch to last workspace
+bindsym $mod+q workspace back_and_forth
+
+# rename current workspace
+bindsym $mod+Control+r exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+
+bindsym $mod+z reload
+bindsym $mod+Shift+z exit
+
+# multimedia keys
+# Pulse Audio controls
+bindsym $mod+XF86AudioRaiseVolume exec pactl -- set-sink-volume 0 +5% #increase sound volume
+bindsym $mod+XF86AudioLowerVolume exec pactl -- set-sink-volume 0 -5% #decrease sound volume
+bindsym $mod+XF86AudioMute exec pactl -- set-sink-mute 1 toggle
+bindsym $mod+Shift+a exec "pavucontrol"
+
+# Brightness control
+bindsym XF86MonBrightnessUp         exec sudo light -A 1%
+bindsym XF86MonBrightnessDown       exec sudo light -U 1%
+bindsym Shift+XF86MonBrightnessUp   exec sudo light -A 5%
+bindsym Shift+XF86MonBrightnessDown exec sudo light -U 5%
+
+# Go to latest urgent client
+bindsym $mod+a [urgent=latest] focus
+
+bar {
+  position top
+  status_command i3status
+  colors {
+    statusline #AAAAAA
+    background #333333
+    focused_workspace $gray2 $gray2 #FFFFFF
+    inactive_workspace $gray1 $gray1 #AAAAAA
+  }
+}
+
+set $mode_system "System exit"
+mode $mode_system {
+  bindsym {
+    e exec swaymsg exit, mode "default"
+    l exec swaylock -f -c 000000, mode "default"
+    s exec systemctl -i suspend && swaylock, mode "default"
+    r exec systemctl -i reboot, mode "default"
+    h exec systemctl -i poweroff, mode "default"
+
+    # back to normal: Enter or Escape
+    Return mode default
+    Escape mode default
+  }
+}
+bindsym $mod+o mode $mode_system
+
+set $mode_resize "Resize window"
+mode $mode_resize {
+  bindsym --to-code {
+    h            exec swaymsg resize grow   left 10 || swaymsg resize shrink right 10
+    Ctrl+h       exec swaymsg resize grow   left 1  || swaymsg resize shrink right 1
+    j            exec swaymsg resize shrink up   10 || swaymsg resize grow   down  10
+    Ctrl+j       exec swaymsg resize shrink up   1  || swaymsg resize grow   down  1
+    k            exec swaymsg resize grow   up   10 || swaymsg resize shrink down  10
+    Ctrl+k       exec swaymsg resize grow   up   1  || swaymsg resize shrink down  1
+    l            exec swaymsg resize shrink left 10 || swaymsg resize grow   right 10
+    Ctrl+l       exec swaymsg resize shrink left 1  || swaymsg resize grow   right 1
+
+    # back to normal: Enter or Escape
+    Return mode default
+    Escape mode default
+  }
+}
+
+bindsym $mod+r mode $mode_resize
+
+# Screen management
+bindswitch --locked lid:off output $screen_laptop dpms on, exec systemctl --user start wluma
+bindswitch --locked lid:on  exec systemctl --user stop wluma, output $screen_laptop dpms off
+
+# Clipboard
+bindsym ctrl+alt+h exec clipman pick -t wofi
+
+# Handle floating dialogs
+for_window [app_id="pavucontrol"] floating enable
+
+# Start services
+exec udiskie
+exec wl-paste -t text --watch clipman store
+exec wlsunset -l 29.4 -L -98.4
+exec -w \
+  timeout 300 'swaylock -f -c 000000' \
+  timeout 600 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  before-sleep 'swaylock -f -c 000000'
+
+# Load systemd integration
+include /etc/sway/config.d/*

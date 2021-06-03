@@ -121,8 +121,8 @@ alias cp='cp -i'
 alias mkdir='mkdir -p'
 alias dmesg='dmesg --ctime'
 alias df='df --exclude-type=tmpfs'
-alias ls='ls -GF'
-alias ll='ls -Glh'
+alias ls='ls --color -GF'
+alias ll='ls --color -Glh'
 alias pbcopy='xclip -selection clipboard -in'
 alias clean_docker='sudo docker stop $(sudo docker ps -a -q) && sudo docker rm $(sudo docker ps -a -q)'
 alias clean_images='sudo docker rmi $(sudo docker images -q)'
@@ -143,7 +143,6 @@ alias dc="docker-compose"
 # User configuration
 export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 export GOPATH="$HOME/go"
-export LANG=en_US.UTF-8
 export EDITOR=nvim
 export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"

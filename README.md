@@ -6,7 +6,8 @@ The accumulation of years of trials and errors.
 * Terminal: kitty + tmux
 * Text editor: neovim
 * Shell: zsh 
-* Window Manager: i3 + rofi
+* Window Manager: sway
+* Launcher: wofi
 * Status bar: i3status
 
 ### Install

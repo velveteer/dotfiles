@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
 stow --restow \
-	dunst \
 	git \
-	i3 \
+	sway \
 	kitty \
-	redshift \
-	rofi \
+	wofi \
 	tmux \
 	vim \
 	zsh
