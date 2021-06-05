@@ -8,7 +8,8 @@ The accumulation of years of trials and errors.
 * Shell: zsh 
 * Window Manager: sway
 * Launcher: wofi
-* Status bar: i3status
+* Status bar: waybar
+* Notifications: mako
 
 ### Install
 

@@ -40,10 +40,11 @@ seat * hide_cursor 10000
 set $blue #005588
 set $gray1 #484848
 set $gray2 #333333
-
 client.focused            $gray1   $gray1   #FFFFFF   #333333
 client.focused_inactive   $gray2   $gray2   #FFFFFF   #000000
 client.unfocused          $gray2   $gray2   #FFFFFF   #000000
+
+set $menu wofi --show=drun --lines=5 --prompt=""
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -55,7 +56,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+c kill
 
 # start wofi launcher
-bindsym $mod+p exec "wofi --show run"
+bindsym $mod+p exec $menu
 
 # take screenshot
 # bindsym $mod+s exec "escrotum -sC"
@@ -148,13 +149,7 @@ bindsym $mod+a [urgent=latest] focus
 
 bar {
   position top
-  status_command i3status
-  colors {
-    statusline #AAAAAA
-    background #333333
-    focused_workspace $gray2 $gray2 #FFFFFF
-    inactive_workspace $gray1 $gray1 #AAAAAA
-  }
+  swaybar_command waybar
 }
 
 set $mode_system "System exit"
@@ -205,13 +200,9 @@ for_window [app_id="pavucontrol"] floating enable
 
 # Start services
 exec udiskie
+exec mako
 exec wl-paste -t text --watch clipman store
 exec wlsunset -l 29.4 -L -98.4
-exec -w \
-  timeout 300 'swaylock -f -c 000000' \
+exec swayidle -w \
   timeout 600 'swaymsg "output * dpms off"' \
-  resume 'swaymsg "output * dpms on"' \
-  before-sleep 'swaylock -f -c 000000'
-
-# Load systemd integration
-include /etc/sway/config.d/*
+  resume 'swaymsg "output * dpms on"' 
