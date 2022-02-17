@@ -126,7 +126,7 @@ alias ..="cd .."
 alias dc="docker-compose"
 
 # User configuration
-export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 export GOPATH="$HOME/go"
 export LANG=en_US.UTF-8
 export EDITOR=nvim
@@ -141,3 +141,4 @@ if [ -f '/Users/m117129/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/m1
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/m117129/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/m117129/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -e /Users/m117129/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/m117129/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

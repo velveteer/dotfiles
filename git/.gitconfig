@@ -2,7 +2,7 @@
     name = Josh Miller
     email = notjoshmiller@gmail.com
 [core]
-    editor = vim
+    editor = nvim
     excludesfile = ~/.gitexcludes
 [color]
     ui = true
@@ -19,7 +19,5 @@
     path = ~/.gitconfig_local
 [rerere]
     enabled = true
-[url "https://"]
-    insteadOf = git://
 [credential]
     helper = cache --timeout 36000000

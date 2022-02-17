@@ -10,7 +10,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'nikvdp/neomux'
 Plug 'godlygeek/tabular'
 Plug 'wincent/terminus'
 Plug 'henrik/vim-indexed-search'
@@ -19,7 +18,7 @@ Plug 'Konfekt/FastFold'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'phaazon/hop.nvim'
+Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'jwhitley/vim-matchit'
 Plug 'w0rp/ale'
@@ -36,9 +35,11 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
 Plug 'mileszs/ack.vim'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'phaazon/gruvbox'
+Plug 'chriskempson/base16-vim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -134,9 +135,6 @@ set wildignore+=*.aux,*.bbl,*.blg,*.brf,*.fls,*.fdb_latexmk,*.synctex.gz,*.pdf
 " ============================================================================
 
 let mapleader = "\<Space>"
-
-" Hop hop
-nmap <silent> <leader>h :HopWord<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -245,7 +243,7 @@ let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
 let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
 let g:airline#extensions#tabline#fnamecollapse = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " Show tab number
-let g:airline#extensions#tabline#buffer_nr_show = 0
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#ale#enabled = 1 " ALE
 let g:airline_highlighting_cache = 1
 let g:airline_theme = 'gruvbox'
@@ -308,6 +306,8 @@ augroup accurate_syn_highlight
     autocmd BufEnter * :syntax sync fromstart
 augroup END
 
+" au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+
 " }}}
 " ============================================================================
 " LANGUAGE SPECIFICS {{{
@@ -325,3 +325,4 @@ augroup END
 " Haskell import sorting
 noremap <silent> <Leader>si V:s/\v[^(]*\(\zs.*\ze\)/\=join(sort(split(submatch(0), '\v(\([^)]*)@<!\s*,\s*')), ', ')<CR>:noh<CR>
 
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
