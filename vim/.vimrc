@@ -58,21 +58,6 @@ call plug#end()
 set background=dark
 colorscheme kanagawa
 set number
-lua << END
-require('lualine').setup {
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'buffers'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  extensions = {'neo-tree', 'fzf'}
-}
-require('tidy').setup()
-END
-
 " Indent according to previous line.
 set autoindent
 " Use spaces instead of tabs.
@@ -266,3 +251,18 @@ augroup END
 noremap <silent> <Leader>si V:s/\v[^(]*\(\zs.*\ze\)/\=join(sort(split(submatch(0), '\v(\([^)]*)@<!\s*,\s*')), ', ')<CR>:noh<CR>
 
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+
+lua << END
+require('lualine').setup {
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'buffers'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  extensions = {'neo-tree', 'fzf'}
+}
+require('tidy').setup()
+END
