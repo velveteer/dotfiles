@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 HISTFILE="$HOME/.zsh_history"
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 
 bindkey -e
 setopt prompt_subst
@@ -89,18 +89,6 @@ RPROMPT="%F{8}${SSH_TTY:+%n@%m}%f"    # Display username if connected via SSH
 #
 # ------------------------------------------------------------------------------
 
-if [ $commands[fasd] ]; then # check if fasd is installed
-  fasd_cache="$HOME/.fasd-init-cache"
-  if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-    fasd --init auto >| "$fasd_cache"
-  fi
-  source "$fasd_cache"
-  unset fasd_cache
-
-  alias v="f -e \"$EDITOR\""
-  alias o='a -e open_command'
-fi
-
 #Play safe!
 alias rm='rm -i'
 alias mv='mv -i'
@@ -110,11 +98,9 @@ alias dmesg='dmesg --ctime'
 alias df='df --exclude-type=tmpfs'
 alias ls='ls -GF'
 alias ll='ls -Glh'
-# alias pbcopy='xclip -selection clipboard -in'
 alias clean_docker='sudo docker stop $(sudo docker ps -a -q) && sudo docker rm $(sudo docker ps -a -q)'
 alias clean_images='sudo docker rmi $(sudo docker images -q)'
-# alias top='htop'
-alias startx="startx -- -keeptty"
+alias top='htop'
 alias vim="nvim"
 alias gd="git diff"
 alias gdc="git diff --cached"
@@ -124,21 +110,21 @@ alias gco="git checkout"
 alias gcan="git commit --amend --no-edit"
 alias ..="cd .."
 alias dc="docker-compose"
+alias ww="warp wims-core"
+alias stack="~/stack-wrapper"
 
 # User configuration
-export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm@12/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 export GOPATH="$HOME/go"
 export LANG=en_US.UTF-8
 export EDITOR=nvim
 export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"
-
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/m117129/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/m117129/google-cloud-sdk/path.zsh.inc'; fi
-
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/m117129/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/m117129/google-cloud-sdk/completion.zsh.inc'; fi
-if [ -e /Users/m117129/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/m117129/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+# ghcup
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
