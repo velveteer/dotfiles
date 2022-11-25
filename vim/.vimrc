@@ -11,18 +11,18 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'godlygeek/tabular'
-Plug 'wincent/terminus'
-Plug 'henrik/vim-indexed-search'
-Plug 'vim-airline/vim-airline'
-Plug 'Konfekt/FastFold'
-Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'jwhitley/vim-matchit'
-Plug 'w0rp/ale'
-Plug 'luochen1990/rainbow'
+Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
+Plug 'jwhitley/vim-matchit'
+Plug 'luochen1990/rainbow'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'mcauley-penney/tidy.nvim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'w0rp/ale'
+Plug 'mileszs/ack.vim'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -33,11 +33,16 @@ Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'phaazon/gruvbox'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'mcauley-penney/tidy.nvim'
+" neo-tree
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v2.x' }
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -47,78 +52,39 @@ call plug#end()
 " BASIC SETTINGS {{{
 " ============================================================================
 
-if (has("termguicolors"))
-  set termguicolors
-endif
-
 set background=dark
-colorscheme gruvbox
-highlight Conceal ctermbg=NONE guibg=NONE
+colorscheme kanagawa
+set number
+" Indent according to previous line.
+set autoindent
+" Use spaces instead of tabs.
+set expandtab
+" Tab key indents by 2 spaces.
+set softtabstop=2
+" >> indents by 2 spaces.
+set shiftwidth=2
+" >> indents to next multiple of 'shiftwidth'.
+set shiftround
 
-filetype plugin indent on          " Load plugins according to detected filetype.
-syntax on                          " Enable syntax highlighting.
-set autoindent                     " Indent according to previous line.
-set expandtab                      " Use spaces instead of tabs.
-set softtabstop =2                 " Tab key indents by 2 spaces.
-set shiftwidth  =2                 " >> indents by 2 spaces.
-set shiftround                     " >> indents to next multiple of 'shiftwidth'.
-set backspace   =indent,eol,start  " Make backspace work as you would expect.
-set hidden                         " Switch between buffers without having to save first.
-set laststatus  =2                 " Always show statusline.
-set display     =lastline          " Show as much as possible of the last line.
-set showcmd                        " Show already typed keys when more are expected.
-set incsearch                      " Highlight while searching with / or ?.
-set hlsearch                       " Keep matches highlighted.
-set ttyfast                        " Faster redrawing.
-set lazyredraw                     " Only redraw when necessary.
-set splitbelow                     " Open new windows below the current window.
-set splitright                     " Open new windows right of the current window.
-set nocursorline                   " (OFF) Find the current line quickly.
-set wrapscan                       " Searches wrap around end-of-file.
-set report      =0                 " Always report changed lines.
-set synmaxcol   =200               " Only highlight the first 200 columns.
-set number                         " Yeah line numbers
-set timeoutlen  =1000              " Remove delay when changing modes
-set ttimeoutlen =0
-set list                           " Show non-printable characters.
-set updatetime  =100
-
-if has('multi_byte') && &encoding ==# 'utf-8'
-  let &listchars = 'tab:▸ ,extends:❯,precedes:❮,nbsp:±'
-else
-  let &listchars = 'tab:> ,extends:>,precedes:<,nbsp:.'
-endif
+" Stores undo state even when files are closed (in undodir)
+set undodir=$HOME/.vim/undo
+set undofile
 
 " Annoying temporary files
 set backupdir=/tmp//,.
 set directory=/tmp//,
 set noswapfile
 
-" Stores undo state even when files are closed (in undodir)
-set undodir=$HOME/.vim/undo
-set undofile
-
 " Use ``indent`` based folding
-set foldmethod=indent
+set foldmethod=syntax
 
 " Disable all folds on file open until `zc` or `zM` etc is used
 set nofoldenable
-
-" Don't display the current mode (Insert, Visual, Replace)
-" in the status line. This info is already shown in the
-" Airline status bar.
-set noshowmode
 
 " Start scrolling before cursor gets to the edge
 set scrolloff=5
 set sidescrolloff=15
 set sidescroll=1
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" Set local settings per project root in .vimlocal
-silent! so .vimlocal
 
 " Ignore certain files and folders when globbing
 set wildignore+=*.o,*.obj,*.bin,*.dll,*.exe
@@ -139,15 +105,6 @@ nmap <leader>w :w!<cr>
 
 " Binding for fzf files in current dir
 map ; :Files<CR>
-
-" Set paste
-map <leader>pp :setlocal paste!<cr>
-
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" No Ex mode (see :help Q)
-nnoremap Q <nop>
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -190,7 +147,7 @@ nnoremap <silent> <leader>ev :edit $MYVIMRC<cr>
 nnoremap <silent> <leader>sv :silent update $MYVIMRC <bar> source $MYVIMRC <bar>
     \ echomsg "Nvim config successfully reloaded!"<cr>
 
-" TEXT MANIPULATION 
+" TEXT MANIPULATION
 nmap <leader>x( <Plug>Delete-surrounding-(
 nmap     <Plug>Delete-surrounding-( mzdi(va(p`zh
 nmap <leader>x[ <Plug>Delete-surrounding-[
@@ -205,6 +162,11 @@ nnoremap <Plug>Surround-word-with-[ mzdiwi[<esc>pa]<esc>`zl
 nmap <leader>{ <Plug>Surround-word-with-{
 nnoremap <Plug>Surround-word-with-{ mzdiwi{<esc>pa}<esc>`zl
 
+" neo-tree
+nnoremap \| :Neotree reveal<cr>
+nnoremap gd :Neotree float reveal_file=<cfile> reveal_force_cwd<cr>
+nnoremap <leader>b :Neotree toggle show buffers right<cr>
+nnoremap <leader>s :Neotree float git_status<cr>
 
 " }}}
 " ============================================================================
@@ -249,37 +211,10 @@ let g:ale_linters = {'haskell': ['hlint']}
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" ----------------------------------------------------------------------------
-" airline
-" ----------------------------------------------------------------------------
-
-let g:airline#extensions#tabline#enabled = 1 " Enable the list of buffers
-let g:airline#extensions#tabline#fnamemod = ':t' " Show the filename
-let g:airline#extensions#tabline#fnamecollapse = 0
-let g:airline#extensions#tabline#tab_nr_type = 1 " Show tab number
-let g:airline#extensions#tabline#buffer_nr_show = 0
-let g:airline#extensions#ale#enabled = 1 " ALE
-let g:airline_highlighting_cache = 1
-let g:airline_theme = 'gruvbox'
-let g:airline_powerline_fonts = 0
-
 " }}}
 " ============================================================================
 " AUTOCMD {{{
 " ============================================================================
-
-" Utility function to delete trailing white space
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-
-" use it on saving 
-augroup whitespace
-  autocmd!
-  autocmd BufWrite *.js,*.vue,*.hs,*.purs,*.ts :call DeleteTrailingWS()
-augroup END
 
 " Return to last edit position when opening files (You want this!)
 augroup last_edit
@@ -292,16 +227,6 @@ augroup END
 
 augroup vimrc
   autocmd!
-
-  " File types
-  au BufNewFile,BufRead Dockerfile* set filetype=dockerfile
-
-  " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
-  au BufNewFile,BufRead,InsertLeave * silent! match ExtraWhitespace /\s\+$/
-  au InsertEnter * silent! match ExtraWhitespace /\s\+\%#\@<!$/
-
-  " Unset paste on InsertLeave
-  au InsertLeave * silent! set nopaste
 
   " Automatic rename of tmux window
   if exists('$TMUX') && !exists('$NORENAME')
@@ -341,3 +266,19 @@ augroup END
 " Haskell import sorting
 noremap <silent> <Leader>si V:s/\v[^(]*\(\zs.*\ze\)/\=join(sort(split(submatch(0), '\v(\([^)]*)@<!\s*,\s*')), ', ')<CR>:noh<CR>
 
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+
+lua << END
+require('lualine').setup {
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'buffers'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  extensions = {'neo-tree', 'fzf'}
+}
+require('tidy').setup()
+END

@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 HISTFILE="$HOME/.zsh_history"
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=50000
+SAVEHIST=50000
 
 bindkey -e
 setopt prompt_subst
@@ -95,18 +95,6 @@ RPROMPT="%F{8}${SSH_TTY:+%n@%m}%f"    # Display username if connected via SSH
 #
 # ------------------------------------------------------------------------------
 
-if [ $commands[fasd] ]; then # check if fasd is installed
-  fasd_cache="$HOME/.fasd-init-cache"
-  if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-    fasd --init auto >| "$fasd_cache"
-  fi
-  source "$fasd_cache"
-  unset fasd_cache
-
-  alias v="f -e \"$EDITOR\""
-  alias o='a -e open_command'
-fi
-
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -127,7 +115,6 @@ alias pbcopy='xclip -selection clipboard -in'
 alias clean_docker='sudo docker stop $(sudo docker ps -a -q) && sudo docker rm $(sudo docker ps -a -q)'
 alias clean_images='sudo docker rmi $(sudo docker images -q)'
 alias top='htop'
-alias startx="startx -- -keeptty"
 alias vim="nvim"
 alias gd="git diff"
 alias gdc="git diff --cached"
@@ -139,15 +126,18 @@ alias gco="git checkout"
 alias gcan="git commit --amend --no-edit"
 alias ..="cd .."
 alias dc="docker-compose"
+alias ww="warp wims-core"
+alias stack="~/stack-wrapper"
 
 # User configuration
-export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.ghcup/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
 export GOPATH="$HOME/go"
 export EDITOR=nvim
 export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"
-
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/completion.zsh.inc ] && source ~/completion.zsh.inc
-source /etc/profile.d/nix.sh
+
+# ghcup
+[ -f "$HOME/.ghcup/env" ] && source "$HOME/.ghcup/env" # ghcup-env
