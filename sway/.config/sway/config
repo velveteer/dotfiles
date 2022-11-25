@@ -1,7 +1,7 @@
 #vim:filetype=i3
 set $mod Mod4
 set $screen_laptop 'eDP-1'
-xwayland disable
+xwayland enable
 
 font pango: Source Code Pro Regular 9
 
