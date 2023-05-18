@@ -22,10 +22,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'mcauley-penney/tidy.nvim'
 Plug 'junegunn/vim-easy-align'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'w0rp/ale'
-Plug 'mileszs/ack.vim'
+Plug 'nvim-lua/plenary.nvim'
+" Languages
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
@@ -38,14 +37,16 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'LnL7/vim-nix', { 'for': 'nix' }
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'phaazon/gruvbox'
-Plug 'rebelot/kanagawa.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'mcauley-penney/tidy.nvim'
 " neo-tree
-Plug 'nvim-lua/plenary.nvim'
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v2.x' }
+" telescope
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" colors
+Plug 'phaazon/gruvbox'
+Plug 'rebelot/kanagawa.nvim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -107,7 +108,7 @@ let mapleader = "\<Space>"
 nmap <leader>w :w!<cr>
 
 " Binding for fzf files in current dir
-map ; :Files<CR>
+" map ; :Files<CR>
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -156,6 +157,16 @@ nnoremap gd :Neotree float reveal_file=<cfile> reveal_force_cwd<cr>
 nnoremap <leader>b :Neotree toggle show buffers right<cr>
 nnoremap <leader>s :Neotree float git_status<cr>
 
+" telescope
+nnoremap ; <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').grep_string()<cr>
+
+" base64
+vnoremap <leader>64 y:tabe\|pu!=system('base64 -D', @@)<cr>
+
 " }}}
 " ============================================================================
 " FUNCTIONS {{{
@@ -191,7 +202,7 @@ command! Todo call s:todo()
 let g:rainbow_active = 1
 
 " Use silver searcher instead of ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'ag --vimgrep'
 
 " ALE Settings
 let g:ale_lint_on_save = 1
@@ -265,4 +276,18 @@ require('lualine').setup {
   extensions = {'neo-tree', 'fzf'}
 }
 require('tidy').setup()
+require('telescope').load_extension('fzf')
+local actions = require("telescope.actions")
+require("telescope").setup{
+  defaults = {
+    file_ignore_patterns = {
+      "node_modules"
+    },
+    mappings = {
+      i = {
+        ["<C-u>"] = false
+      },
+    },
+  }
+}
 END
