@@ -24,19 +24,20 @@ Plug 'mcauley-penney/tidy.nvim'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
 Plug 'nvim-lua/plenary.nvim'
-" Languages
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
-Plug 'JulesWang/css.vim', { 'for': 'css' }
-Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-Plug 'LnL7/vim-nix', { 'for': 'nix' }
-Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'nvim-lualine/lualine.nvim'
+" Languages
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+" Plug 'posva/vim-vue', { 'for': 'vue' }
+" Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+" Plug 'JulesWang/css.vim', { 'for': 'css' }
+" Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+" Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+" Plug 'raichoo/purescript-vim', { 'for': 'purescript' }
+" Plug 'fatih/vim-go', { 'for': 'go' }
+" Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" Plug 'LnL7/vim-nix', { 'for': 'nix' }
+" Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
 Plug 'kyazdani42/nvim-web-devicons'
 " neo-tree
 Plug 'MunifTanjim/nui.nvim'
@@ -280,14 +281,16 @@ require('telescope').load_extension('fzf')
 local actions = require("telescope.actions")
 require("telescope").setup{
   defaults = {
-    file_ignore_patterns = {
-      "node_modules"
-    },
     mappings = {
       i = {
         ["<C-u>"] = false
       },
     },
   }
+}
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
 }
 END
