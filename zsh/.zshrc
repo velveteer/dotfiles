@@ -62,6 +62,8 @@ precmd() {
 PROMPT="%(?.%F{magenta}.%F{red})❯%f " # Display a red prompt char on failure
 RPROMPT="%F{8}${SSH_TTY:+%n@%m}%f"    # Display username if connected via SSH
 
+# source "/opt/homebrew/opt/kube-ps1/share/kube-ps1.sh"
+# PS1='$(kube_ps1)'$PS1
 
 # ------------------------------------------------------------------------------
 #
@@ -109,9 +111,9 @@ alias glo="git log --oneline"
 alias gco="git checkout"
 alias gcan="git commit --amend --no-edit"
 alias ..="cd .."
-alias dc="docker-compose"
+alias dc="docker compose"
 alias ww="warp wims-core"
-alias stack="~/stack-wrapper"
+# alias stack="~/stack-wrapper"
 
 # User configuration
 export PATH="/opt/homebrew/bin:/opt/homebrew/opt/llvm@12/bin:$HOME/.local/bin:$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/purescript:$GOPATH/bin:$HOME/.nix-profile/bin:$PATH"
@@ -120,6 +122,7 @@ export LANG=en_US.UTF-8
 export EDITOR=nvim
 export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # The next line updates PATH for the Google Cloud SDK.
