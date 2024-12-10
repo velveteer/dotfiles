@@ -23,21 +23,32 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'mcauley-penney/tidy.nvim'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'moll/vim-bbye'
+Plug 'folke/twilight.nvim'
 " Languages
+Plug 'preservim/vim-markdown'
+Plug 'Twinside/vim-haskellFold', { 'for': 'haskell' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'hashivim/vim-terraform', { 'for': 'terraform' }
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install --frozen-lockfile --production',
+  \ 'for': ['javascript', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html'] }
+Plug 'stevearc/conform.nvim' " Formatter
+
 " neo-tree
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'MunifTanjim/nui.nvim'
-Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v2.x' }
-" telescope
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-neo-tree/neo-tree.nvim', { 'branch': 'v3.x' }
 " colors
 Plug 'phaazon/gruvbox'
 Plug 'rebelot/kanagawa.nvim'
+" telescope
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+" zen
+Plug 'folke/zen-mode.nvim'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -70,11 +81,12 @@ set backupdir=/tmp//,.
 set directory=/tmp//,
 set noswapfile
 
-" Use ``indent`` based folding
-set foldmethod=syntax
+set fdm=syntax
+set fdc=0
+set fdl=1
 
 " Disable all folds on file open until `zc` or `zM` etc is used
-set nofoldenable
+" set nofoldenable
 
 " Start scrolling before cursor gets to the edge
 set scrolloff=5
@@ -126,6 +138,9 @@ vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
 vmap a` :Tabularize /<-<CR>
 vmap a. :Tabularize /.=<CR>
+
+" Quick buffer kill
+nnoremap <Leader>q :Bdelete<CR>
 
 " When completion menu is shown, use <cr> to select an item
 " and do not add an annoying newline. Otherwise, <enter> is what it is.
@@ -246,8 +261,8 @@ augroup haskell
   au FileType haskell nnoremap <buffer> <leader>? :call ale#cursor#ShowCursorDetail()<cr>
 augroup END
 
-" Haskell import sorting
-noremap <silent> <Leader>si V:s/\v[^(]*\(\zs.*\ze\)/\=join(sort(split(submatch(0), '\v(\([^)]*)@<!\s*,\s*')), ', ')<CR>:noh<CR>
+noremap <Leader>fd :FormatDisable<cr>
+noremap <Leader>fe :FormatEnable<cr>
 
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
@@ -280,4 +295,108 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
+require("conform").setup({
+  formatters_by_ft = {
+    haskell = { "fourmolu" },
+    javascript = { "prettierd", stop_after_first = true },
+    typescript = { "prettierd", stop_after_first = true },
+    typescriptreact = { "prettierd", stop_after_first = true },
+  },
+  format_on_save = function(bufnr)
+    -- Disable with a global or buffer-local variable
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      return
+    end
+    return { timeout_ms = 5000, lsp_format = "fallback" }
+  end,
+})
+
+vim.api.nvim_create_user_command("FormatDisable", function(args)
+  if args.bang then
+    -- FormatDisable! will disable formatting just for this buffer
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, {
+  desc = "Disable autoformat-on-save",
+  bang = true,
+})
+vim.api.nvim_create_user_command("FormatEnable", function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = "Re-enable autoformat-on-save",
+})
+
+require("zen-mode").setup {
+  window = {
+    backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+    -- height and width can be:
+    -- * an absolute number of cells when > 1
+    -- * a percentage of the width / height of the editor when <= 1
+    -- * a function that returns the width or the height
+    width = 120, -- width of the Zen window
+    height = 1, -- height of the Zen window
+    -- by default, no options are changed for the Zen window
+    -- uncomment any of the options below, or add other vim.wo options you want to apply
+    options = {
+      signcolumn = "no", -- disable signcolumn
+      number = false, -- disable number column
+      relativenumber = false, -- disable relative numbers
+      -- cursorline = false, -- disable cursorline
+      -- cursorcolumn = false, -- disable cursor column
+      -- foldcolumn = "0", -- disable fold column
+      -- list = false, -- disable whitespace characters
+    },
+  },
+  plugins = {
+    -- disable some global vim options (vim.o...)
+    -- comment the lines to not apply the options
+    options = {
+      enabled = true,
+      ruler = false, -- disables the ruler text in the cmd line area
+      showcmd = false, -- disables the command in the last line of the screen
+      -- you may turn on/off statusline in zen mode by setting 'laststatus'
+      -- statusline will be shown only if 'laststatus' == 3
+      laststatus = 0, -- turn off the statusline in zen mode
+    },
+    twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+    gitsigns = { enabled = true }, -- disables git signs
+    tmux = { enabled = false }, -- disables the tmux statusline
+    -- this will change the font size on kitty when in zen mode
+    -- to make this work, you need to set the following kitty options:
+    -- - allow_remote_control socket-only
+    -- - listen_on unix:/tmp/kitty
+    kitty = {
+      enabled = true,
+      font = "+3", -- font size increment
+    },
+  },
+}
 END
+
+" Cyclic tag navigation {{{
+let g:rt_cw = ''
+function! RT()
+	let cw = expand('<cword>')
+	try
+		if cw != g:rt_cw
+			execute 'tag ' . cw
+			call search(cw,'c',line('.'))
+		else
+			try
+				execute 'tnext'
+			catch /.*/
+				execute 'trewind'
+			endtry
+			call search(cw,'c',line('.'))
+		endif
+		let g:rt_cw = cw
+	catch /.*/
+		echo "no tags on " . cw
+	endtry
+endfunction
+map <C-]> :call RT()<CR>
+" }}}
